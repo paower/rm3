@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<script src="../../../../jubaozuang/jubao/Themes/Home/nc/Public/js/JdClick.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>{$Think.lang.wx}</title>
+<link rel="stylesheet" href="__WCSS__/style.css">
+<link rel="stylesheet" href="__WCSS__/meCen.css">
+<script src="__WJS__/jquery1.11.1.min.js"></script>
+<script type="text/javascript" src="__COM__/layer/layer.js" ></script>
+<script type="text/javascript" src="__COM__/js/index.js"></script>
+<style>
+#getting{height: 21px;
+    color: #fdd2a7;
+    background: #080d23;
+    border: 0;
+    padding: 0px;
+    width: 115px;}
+    select{
+		background: none;
+		color: #0f80c4;
+		border: 0;
+		width: 60%;
+		margin: 11px 0;
+	}
+	option{
+		border: 0;
+		background: none;
+		color: #0f80c4;
+	}
+</style>
+<body class="bg96">
+<div class="header">
+	<div class="header_l">
+		<a href="javascript:history.back(-1)"><img src="__WIMG__/jiant.png" alt=""></a>
+	</div>
+	<div class="header_c"><h2>{$Think.lang.wx}</h2></div>
+	<div class="header_r"></div>
+</div>
+
+<div class="big_width100">
+	
+	<div class="add_bank_add_gr">
+        <form id='myupload'  method='post' enctype='multipart/form-data'>
+        <div class="fill_sty add_gr_b10">
+            <p style="width: 100px;">{$Think.lang.wxlxfs}：</p>
+            <input type="text" name="wx" placeholder="{$Think.lang.qsrwxh}" autocomplete="off" id="crkxm" value="{$wx}">
+        </div>
+		</form>
+		
+	</div>
+	<div class="buttonGeoup">
+		<a href="#" class="not_next" id="confirm">{$Think.lang.termine}</a>
+	</div>
+</div>
+<!-- 提示不能为空 -->
+<script src="__COM__/js/jquery.cookie.js" type="text/javascript" charset="utf-8"></script>
+<script>
+        $(function(){
+
+            /*防刷新：检测是否存在cookie*/
+            if($.cookie("captcha")){
+                var count = $.cookie("captcha");
+                var btn = $('#getting');
+                btn.val(count+'秒后可重新获取').attr('disabled',true).css('cursor','not-allowed');
+                var resend = setInterval(function(){
+                    count--;
+                    if (count > 0){
+                        btn.val(count+'秒后可重新获取').attr('disabled',true).css('cursor','not-allowed');
+                        $.cookie("captcha", count, {path: '/', expires: (1/86400)*count});
+                    }else {
+                        clearInterval(resend);
+                        btn.val("获取验证码").removeClass('disabled').removeAttr('disabled style');
+                    }
+                }, 1000);
+            }
+
+            /*点击改变按钮状态，已经简略掉ajax发送短信验证的代码*/
+            $('#getting').click(function(){
+                var btn = $(this);
+                var count = 60;
+                var phone = $("#phonenumber").val();
+                if(phone==""){
+                    msg_alert('请输入手机号码');
+                    return;
+                }
+                $.ajax({
+                    url:"{:U('Growth/sms')}",
+                    data:{mobiles:phone},
+                    dataType:"json",
+                    type:"post",
+                    async : false,
+                    cache : false,
+                    success:function(res){
+                        console.log(res);
+                        if(res!=null){
+                            msg_alert("验证码发送成功");
+                        }else{
+ 
+                        }
+                    },
+                    error:function(){
+                        msg_alert("验证码发送失败");
+                    }
+                })
+                var resend = setInterval(function(){
+                    count--;
+                    if (count > 0){
+                            btn.val(count+"秒后可重新获取");
+                        $.cookie("captcha", count, {path: '/', expires: (1/86400)*count});
+                    }else {
+
+                        clearInterval(resend);
+                        btn.val("获取验证码").removeAttr('disabled style');
+                    }
+                }, 1000);
+                btn.attr('disabled',true).css('cursor','not-allowed');
+            });
+
+        });
+</script>
+<script type="text/javascript">
+    $("#second").click(function (){
+            sendyzm($("#second"));
+        });
+        //用ajax提交到后台的发送短信接口
+
+    
+        function sendyzm(obj){
+
+            var phone = $("#phonenumber").val();
+            if(phone!='') {
+                $.ajax({
+                    url:"{:U('Growth/sms')}",
+                    data:{mobiles:phone},
+                    dataType:"json",
+                    type:"post",
+                    async : false,
+                    cache : false,
+                    success:function(res){
+                        console.log(res);
+                        if(res!=null){
+                            msg_alert("验证码发送成功");
+                        }else{
+ 
+                        }
+                    },
+                    error:function(){
+                        msg_alert("验证码发送失败");
+                    }
+                })
+                setTime(obj);//开始倒计时
+            }
+        }
+     //60s倒计时实现逻辑
+        var countdown = 60;
+        function setTime(obj) {
+            if (countdown == 0) {
+                obj.prop('disabled', false);
+                obj.text("点击获取验证码");
+                countdown = 60;//60秒过后button上的文字初始化,计时器初始化;
+                return;
+            } else {
+                obj.prop('disabled', true);
+                obj.text("("+countdown+"s)后重新发送") ;
+                countdown--;
+            }
+            setTimeout(function() { setTime(obj) },1000) //每1000毫秒执行一次
+        }
+
+    $('.shangcanj').change(function (e) {
+        var old_this = $(this);
+        var files = this.files;
+        var img = new Image();
+        var reader = new FileReader();
+        reader.readAsDataURL(files[0]);
+        reader.onload = function (e) {
+            var dx = (e.total / 1024) / 1024;
+            if (dx >= 10) {
+                alert("文件不能大于10M");
+                return;
+            }
+            img.src = this.result;
+            img.style.width = "100%";
+            img.style.height = "90%";
+            old_this.parents('.orderlist').find('.wxmacenter').html(img);
+			//old_this.parents('.orderlist').find('.wxmacenter').addClass())
+        }
+    })
+    function uploadimg(){
+
+        $("#photo").trigger("click");
+    }
+    $('#confirm').click(function () {
+        var code =$.trim($('#code').val()); //姓名
+        <!-- if(code == ''){ -->
+            <!-- msg_alert('验证码有误'); -->
+            <!-- return;  -->
+        <!-- } -->
+        var fm = document.getElementsByTagName('form')[0];
+        var fl = new FormData(fm);
+        var url = "{:U('index/changewx')}";
+        $.ajax({
+          url:url,
+          type:"POST",
+          data:fl,
+          dataType:"json",
+          contentType:false,
+          processData: false, 
+          success: function (data) {
+            if (data.status == 1) {
+                msg_alert('确认成功');
+				window.location.replace("{:U('Index/allassets')}");
+            } else {
+                msg_alert(data.message);
+            }
+         },
+            error: function (xhr) { //上传失败
+                console.log(xhr);
+                alert("修改失败");
+            }
+        })
+		
+    })
+</script>
+
+
+<script src="__WJS__/ansel_select.js"></script>
+<!--input  type="checkbox"  美化 -->
+<script>
+    function setupLabel() {
+        if ($('.label_check input').length) {
+            $('.label_check').each(function(){
+                $(this).removeClass('c_on');
+            });
+            $('.label_check input:checked').each(function(){
+                $(this).parent('label').addClass('c_on');
+            });
+        };
+        if ($('.label_radio input').length) {    /////
+            $('.label_radio').each(function(){
+                $(this).removeClass('r_on');
+            });
+            $('.label_radio input:checked').each(function(){
+                $(this).parent('label').addClass('r_on');
+            });
+        };
+    };
+    $(document).ready(function(){
+        $('body').addClass('has-js');
+        $('.label_check, .label_radio').click(function(){
+            setupLabel();
+        });
+        setupLabel();
+    });
+
+</script>
+<script>
+    //插件初始化配置
+    $('.select').anselcfg({});
+</script>
+
+</body>
+
+</html>

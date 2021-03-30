@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>{$Think.lang.paymentvoucher}</title>
+<link rel="stylesheet" href="__WCSS__/style.css">
+<link rel="stylesheet" href="__WCSS__/meCen.css">
+<script src="__WJS__/jquery1.11.1.min.js"></script>
+<script type="text/javascript" src="__WJS__/responsive.tabs.js"></script>
+<script src="__WJS__/iscroll.js"></script>
+<script type="text/javascript" src="__WJS__/jquery.reveal.js"></script>
+<script type="text/javascript" src="__COM__/layer/layer.js"></script>
+<script type="text/javascript" src="__COM__/js/index.js"></script>
+<body class="bg96">
+
+<div class="header">
+	<div class="header_l"> 
+		<a href="javascript:history.go(-1)"
+		><img src="__WIMG__/jiant.png" alt=""></a>
+	</div>
+	<div class="header_c"><h2>{$Think.lang.paymentvoucher}</h2></div>
+	<div class="header_r"></div>
+</div>
+<!--  -->
+<div class="big_width100">
+	<div class="undone_order placeorder03 contact">
+		<div class="undone_order_titel clear_wl">
+		{$Think.lang.countdown}：<font id="hour">{$res['house']}</font>{$Think.lang.hour}<font id="minute">{$res['min']}</font>{$Think.lang.minute}<font id="second">{$res['seconds']}</font>{$Think.lang.second}
+			<span>{$Think.lang.amountmoney}：{$money}</span>
+		</div>
+	</div>
+	<div class="orderlist">
+			<div class="wxmacenter"><img src="{$src}" alt=""></div>
+				<input type="hidden" name="trid" value="{$res[id]}">
+	</div>
+	<div class="buttonGeoup">
+		<a href="javascript:;" class="not_next" id="confirm">已付款</a>
+	</div>
+</div>
+<script>
+var intDiff = parseInt({$daojishi});//倒计时总秒数量
+function timer(intDiff){
+    window.setInterval(function(){
+    var day=0,
+    	hour=0,
+        minute=0,
+        second=0;//时间默认值        
+    if(intDiff > 0){
+        hour = Math.floor(intDiff / (60 * 60)) - (day * 24);
+        minute = Math.floor(intDiff / 60) - (day * 24 * 60) - (hour * 60);
+        second = Math.floor(intDiff) - (day * 24 * 60 * 60) - (hour * 60 * 60) - (minute * 60);
+
+    }
+    if (minute <= 9) minute = '0' + minute;
+    if (second <= 9) second = '0' + second;
+    $('#hour').html(hour);
+    $('#minute').html(minute);
+    $('#second').html(second);
+    intDiff--;
+    }, 1000);
+}
+
+$(function(){
+    timer(intDiff);
+});
+</script>
+</body>
+</html>

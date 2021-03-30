@@ -1,0 +1,177 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>{$Think.lang.confirm}</title>
+<link rel="stylesheet" href="__WCSS__/style.css">
+<link rel="stylesheet" href="__WCSS__/meCen.css">
+<script src="__WJS__/jquery1.11.1.min.js"></script>
+<script type="text/javascript" src="__WJS__/responsive.tabs.js"></script>
+<script type="text/javascript" src="__COM__/js/index.js" ></script>
+<script type="text/javascript" src="__COM__/layer/layer.js"></script>
+
+<script src="__WJS__/iscroll.js"></script>
+<body class="bg96">
+	 
+	<div class="header">
+	    <div class="header_l">
+	    <a href="javascript:history.go(-1)"><img src="__WIMG__/jiant.png" alt=""></a>
+	    </div>
+	    <div class="header_c"><h2>{$Think.lang.confirm}</h2></div>
+	    <div class="header_r"></div>
+	</div>
+	
+	<div class="undone_order placeorder03 contact">
+		<div class="undone_order_titel clear_wl">
+			<span>{$Think.lang.countdown}：{$orders['house']}{$Think.lang.hour}{$orders['min']}{$Think.lang.minute}{$orders['seconds']}{$Think.lang.second}<span>{$Think.lang.amountmoney}：<?php echo (int)$orders['pay_nums']?></span></span><a href="#" >{$Think.lang.contactother}</a>
+		</div>
+	</div>
+	<div class="orderlist">
+		<p>{$Think.lang.nameofbuyer}:</p><span>{$orders['bname']}</span><a href="#" >{$Think.lang.svrightcopy}</a>
+		<p>{$Think.lang.bankname}:</p><span>{$orders['yinh']}</span><a href="#" >{$Think.lang.svrightcopy}</a>
+		<p>{$Think.lang.bankbranch}:</p><span>{$orders[openrds]}</span><a href="#" >{$Think.lang.svrightcopy}</a>
+		<p>{$Think.lang.cardnum}:</p><span>{$orders['card_number']}</span><a href="#" >{$Think.lang.svrightcopy}</a>
+	</div>
+	
+	 <div class="undone_order placeorder03">
+		<div class="undone_order_titel clear_wl">
+			<!--<span>{$Think.lang.amountmoney}：{$orders[pay_nums]}</span>-->
+		</div>
+	</div> 
+	<div class="orderlist">
+		<!-- <p>{$Think.lang.sellername}:</p><span>{$orders['uname']}</span><a href="#" >{$Think.lang.svrightcopy}</a> -->
+		<p>{$Think.lang.alipay}:</p><span>{$orders['zfb']}</span><a href="#" >{$Think.lang.svrightcopy}</a>
+		<!-- <p></p><span>{$Think.lang.buyviewcode}</span> -->
+	</div>
+	
+	 <div class="undone_order placeorder03">
+		<div class="undone_order_titel clear_wl">
+			<!--<span>{$Think.lang.amountmoney}：{$orders[pay_nums]}</span>-->
+		</div>
+	</div> 
+	<div class="orderlist">
+		<!-- <p>{$Think.lang.sellername}:</p><span>{$orders['uname']}</span><a href="#" >{$Think.lang.svrightcopy}</a> -->
+		<p>{$Think.lang.wechat}:</p><span>{$orders['wx']}</span><a href="#" >{$Think.lang.svrightcopy}</a>
+		<!-- <p></p><span>{$Think.lang.buyviewcode}</span> -->
+	</div>
+	
+	<div class="undone_order placeorder03">
+		<div class="undone_order_titel clear_wl">
+			<!-- <span>{$Think.lang.amountmoney}：{$orders[pay_nums]}</span>-->
+		</div>
+	</div> 
+	<div class="orderlist">
+		<!-- <p>{$Think.lang.sellername}:</p><span>{$orders['uname']}</span><a href="#" >{$Think.lang.svrightcopy}</a> -->
+		<p>USDT{$Think.lang.account}:</p><span>{$orders['usdt']}</span><a href="#" >{$Think.lang.svrightcopy}</a>
+		<p>USDT{$Think.lang.sl}:</p><span>0.000000</span>
+	</div>
+	
+	<div class="demo" style="display:none">
+    <div class="accordion">
+		<foreach name="orders" item="v">
+			<div class="changeclass">
+				<div class="accordion-handle">
+					<h4>
+						<p class="accmrp">{$Think.lang.mcje}：{$v['pay_nums']}RMB<span class="acco_con_spana" ><eq name="v['pay_state']" value="2">{$Think.lang.confirm}<else />{$Think.lang.ysk}</eq></span></p>
+						<p>{$v['pay_time']|date="Y-m-d H:i:s",###}<span>{$Think.lang.dkr}：{$v['uname']}</span></p>
+						
+					</h4>
+					<i></i>
+				</div>
+				<div class="accordion-content por">
+					<div class="acco_con_up">
+						<p>{$Think.lang.dkrxm}：<span> {$v['uname']}</span></p>
+						<p>{$Think.lang.sjhm}：<span><?php
+                            echo substr_replace($v['umobile'],'****',3,4);
+                            ?></span></p>
+						<p>{$Think.lang.jyje}：<span>{$v['pay_nums']}RMB</span></p>
+						<p>{$Think.lang.zt}：<span class="acco_con_spana"><eq name="v['pay_state']" value="2">{$Think.lang.confirm}<else />{$Think.lang.ysk}</eq></span></p>
+					</div>
+					<div class="acco_con_upa">
+
+							<h3>{$Think.lang.dkjt}</h3>
+							<div class="shangcjt">
+								<div class="containera">
+									<a href="{:U('Growth/Paidimg',array('id'=>$v['id']))}"><img src="{$v['trans_img']}"  ></a>
+								</div>
+							</div>
+					</div>
+					<in name="v['pay_state']" value="2,4,5">
+						<!-- <a href="javascript:void(0)" class="lanseanna" data-id="{$v['id']}">投诉</a> -->
+						<a href="javascript:void(0)" class="lanseanna" data-id="{$v['id']}">{$Think.lang.confirm}</a>
+						<div style="width: 15%;text-align: center;margin-top:-2.3vmin;margin-bottom:1vmin;height:30%;line-height: 15%;background: red; margin-left: 50%;border-radius: 40px;">
+							<h4>
+								<p  style="width: 100%;line-height: 30px; height: 30px; color:#000;">
+								<a href="javascript:void(0)" id="tousu"  class="pgoumai" onclick="tousu({$v['id']})" style="color: #fff;" data-id="{$v['id']}">投诉</a>
+								</p>
+							</h4>
+						</div>
+						<else />
+						<a href="javascript:void(0)" class="paid">{$Think.lang.ysk}</a>
+						
+					</in>
+				</div>
+			</div>
+		</foreach>
+
+		<notempty name="page">
+			<ul class="pagination">{$page}</ul>
+		</notempty>
+	    </div>
+</div>
+		
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+    $('.accordion,.changeclass').respTabs({
+        model : 'accordions'
+	});
+});
+
+$('.lanseanna').click(function () {
+
+    var old = $(this);
+	var trid = $(this).attr('data-id');
+	if(trid == ''){
+		msg_alert('请选择正确的收款');
+	}
+	$.ajax({
+		url:'/Trading/Con_Getmoney',
+		type:'post',
+		data:{'trid':trid},
+		datatype:'json',
+		success:function (mes) {
+		
+			if(mes.status == 1){
+                old.parents('.changeclass').find('.acco_con_spana').text('已打款');
+                old.text('已打款');
+                old.addClass('paid').removeClass('lanseanna');
+                msg_alert(mes.message);
+            }else{
+                msg_alert(mes.message);
+			}
+        }
+	})
+})
+
+function tousu(id){
+	$.ajax({
+		url:'/Trading/tousu',
+		type:'post',
+		data:{'id':id},
+		datatype:'json',
+		success:function (mes) {
+		
+			if(mes.status == 1){
+                
+                msg_alert(mes.message);
+            }else{
+                msg_alert(mes.message);
+			}
+        }
+	})
+}
+</script>
+
+</body>
+</html>

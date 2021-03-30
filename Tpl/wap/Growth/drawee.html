@@ -1,0 +1,160 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>{$Think.lang.fkxq}</title>
+<link rel="stylesheet" href="__WCSS__/style.css">
+<link rel="stylesheet" href="__WCSS__/meCen.css">
+<script src="__WJS__/jquery1.11.1.min.js"></script>
+<script type="text/javascript" src="__WJS__/responsive.tabs.js"></script>
+<script src="__WJS__/iscroll.js"></script>
+<script type="text/javascript" src="__COM__/layer/layer.js"></script>
+<script type="text/javascript" src="__WJS__/jquery.form.js"></script>
+<script type="text/javascript" src="__COM__/js/index.js"></script>
+<style>
+	.subtintal{
+		width: 100%;
+		height: 50px;
+	}
+	#subiintqr{
+		width: 76%;
+		background: #107fc4;
+		height: 30px;
+		line-height: 30px;
+		color: #fff;
+		font-size: 16px;
+		border: 0;
+		float:none;
+		display: block;
+		margin: 0 auto;
+	}
+</style>
+</head>
+<body class="bg96">
+<div class="header">
+    <div class="header_l">
+        <a href="javascript:history.go(-1)"><img src="__WIMG__/jiant.png" alt=""></a>
+    </div>
+    <div class="header_c"><h2>{$Think.lang.fkxq}</h2></div>
+    <div class="header_r"></div>
+</div>
+
+	<div class="undone_order placeorder03 contact">
+		<div class="undone_order_titel clear_wl">
+			{$Think.lang.fksj}：<span>{$time|date="Y-m-d H:i:s",###}</span>
+			<span>{$Think.lang.amountmoney}：{$money}</span></span>
+            
+		</div>
+	</div>
+	<div class="orderlist">
+		<div class="ni"><p>{$Think.lang.fkr}:</p><span class="text1">{$info.username}</span><a href="#" onclick="copyUrl(1,this);">{$Think.lang.svrightcopy}</a></div>
+		<div class="ni"><p>{$Think.lang.sjh}:</p><span class="text2">{$info.mobile}</span><a href="#" onclick="copyUrl(2,this);">{$Think.lang.svrightcopy}</a></div>
+		<!-- <div class="ni"><p>微信号:</p><span class="text2">{$info.wx}</span><a href="#" onclick="copyUrl(2,this);">{$Think.lang.svrightcopy}</a></div> -->
+		<div class="orderlist">
+        <div class="wxmacenter"><a href="{$src}" style="border: 0;width:100%;" target="_blank"><img src="{$src}" alt=""></a></div>
+        </div>
+	<div class="subtintal">
+        <a href='{:U("growth/ok?id=$id")}' id="subiintqr">确认</a>
+	</div>
+	</div>
+<script>
+var intDiff = parseInt({$time2});//倒计时总秒数量
+function timer(intDiff){
+    window.setInterval(function(){
+    var day=0,
+        hour=0,
+        minute=0,
+        second=0;//时间默认值        
+    if(intDiff > 0){
+        hour = Math.floor(intDiff / (60 * 60)) - (day * 24);
+        minute = Math.floor(intDiff / 60) - (day * 24 * 60) - (hour * 60);
+        second = Math.floor(intDiff) - (day * 24 * 60 * 60) - (hour * 60 * 60) - (minute * 60);
+
+    }
+    if (minute <= 9) minute = '0' + minute;
+    if (second <= 9) second = '0' + second;
+    $('#hour').html(hour);
+    $('#minute').html(minute);
+    $('#second').html(second);
+    intDiff--;
+    }, 1000);
+}
+
+$(function(){
+    timer(intDiff);
+});
+</script>
+<script type="text/javascript">
+    function copyUrl(id,obj)
+        {
+            var txt=$(obj).parents(".ni").find("span").text();
+            copy(txt);
+        }
+
+        function copy(message) {
+            var input = document.createElement("input");
+            input.value = message;
+            document.body.appendChild(input);
+            input.select();
+            input.setSelectionRange(0, input.value.length), document.execCommand('Copy');
+            document.body.removeChild(input);
+            msg_alert("复制成功");
+        }
+</script>
+<script type="text/javascript">
+    function shoukuan(id,obj){
+        if(id==1){
+            $('.zfb_img').toggle();
+        }else if(id==2){
+            $('.wx_img').toggle();
+        }
+       // console.log(id);
+    }
+    $(document).ready(function () {
+        $('.accordion,.changeclass').respTabs({
+            model: 'accordions'
+        });
+    });
+    // //
+   $('.shangcanj').change(function (e) {
+        var old_this = $(this);
+        var files = this.files;
+        var img = new Image();
+        var reader = new FileReader();
+        reader.readAsDataURL(files[0]);
+        reader.onload = function (e) {
+            var dx = (e.total / 1024) / 1024;
+            if (dx >= 2) {
+                alert("文件不能大于2M");
+                return;
+            }
+            img.src = this.result;
+            img.style.width = "100%";
+            img.style.height = "90%";
+            old_this.parents('#myupload').find('.containera').html(img);
+        }
+    })
+
+
+    $('.lanseanna').click(function () {
+        var old = $(this);
+        old.parents('.por').find('form').ajaxSubmit({
+            dataType: 'json', //数据格式为json
+            success: function (data) {
+                if (data.status == 1) {
+                    old.parents('.changeclass').find('.acco_con_spana').text('等待收款');
+                    old.text('已打款');
+                    old.addClass('paid').removeClass('lanseanna');
+                    msg_alert('打款凭证上传成功');
+                } else {
+                    msg_alert(data.message);
+                }
+            },
+            error: function (xhr) { //上传失败
+                alert("上传失败");
+            }
+        });
+    })
+</script>
+</body>
+</html>

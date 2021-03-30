@@ -1,0 +1,308 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>{$Think.lang.assignment}</title>
+<link rel="stylesheet" href="__WCSS__/style.css">
+<link rel="stylesheet" href="__WCSS__/meCen.css">
+<script src="__WJS__/jquery1.11.1.min.js"></script>
+<script type="text/javascript" src="__COM__/layer/layer.js"></script>
+<script type="text/javascript" src="__COM__/js/index.js"></script>
+<style>
+
+</style>
+<body class="bg96 ">
+
+<div class="header">
+	<div class="header_l">
+		<a href="{:U('Index/index')}"><img src="__WIMG__/jiant.png" alt=""></a>
+	</div>
+	<div class="header_c"><h2>{$Think.lang.assignment}</h2></div>
+	<div class="header_r" style="display:none"><a href="javascript:void(0)" id="hide"><img src="__WIMG__/moer_icon.png" alt=""></a>
+		<div id="p1">
+			<div class="down"></div>
+			<ul>
+				<li><a href="{:U('Trading/Nofinsh')}">{$Think.lang.wwcdd}</a></li>
+				<li><a href="{:U('Trading/Conpayd')}">{$Think.lang.confirm}</a></li>
+				<li><a href="{:U('Trading/Dofinsh')}">{$Think.lang.ywcdd}</a></li>
+				<li><a href="{:U('Trading/Sellerrecords')}">{$Think.lang.sellerrecords}</a></li>
+				<li class="not"><a href="{:U('Trading/Selldets')}">{$Think.lang.salescenter}</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="big_width100">
+	<div class="">
+		<div class="assetjiaoyi">
+			<a href="{:U('Growth/Purchase')}"><p class="about">{$Think.lang.subscribe}</p></a>
+			<a href="{:U('Trading/SellCentr')}"><p class="turn abouton">{$Think.lang.assignment}</p></a>
+		</div>
+		<div class="assetjiaoyict">
+			<p>{$Think.lang.choiceasset}</p>
+			<span>
+				<a href="#" >
+					<ul class="inputassetbundle">
+						<li><font class="my">SC</font>{$Think.lang.assetbundle}:</li>
+						<li class="assetyue mystore">{$store1['sc']}</li>
+						<font class="myid" style="display: none;">1</font> 
+						<li class="downicon"><img src="__WIMG__/downicon.png" /></li>
+					</ul>
+				</a>	
+			</span>
+			<div style="display: none;" class="showxian">
+				<span>
+					 <a href="#" >
+						<ul class="inputassetbundle" style="text-align: center;">
+							
+							<li class="assetyue" style="width: 100%;color: #fff" onclick="checkcount(1,this)">SC：{$store1['sc']}</li>
+						</ul>
+					</a>	
+				</span>
+				<span>
+					<a href="#" >
+						<ul class="inputassetbundle">
+							<li class="assetyue" style="width: 100%;color: #fff" onclick="checkcount(2,this)">ST：{$store1['dt_jifen']+0}</li>
+							
+						</ul>
+					</a>	 
+				</span>
+			</div>
+		</div>
+		<div class="assetjiaoyict">
+			<p>{$Think.lang.transferamount}</p>
+			<span>
+				<input type="text"  name="zichang" placeholder="{$Think.lang.inputquantity}" />
+				<!--原动态积分改为ST资产钱包： <input  class="sellredwine" type="text" name="dongtai" value="" placeholder="{$Think.lang.inputquantity}"  /> -->
+			</span>
+		</div>
+		<div class="assetjiaoyict">
+			<p>{$Think.lang.transactionpassword}</p>
+			<span><input type="password" placeholder="{$Think.lang.transactionpassword1}" name="password" /></span>
+		</div>
+		<div class="tips" style="padding-left:9%;">SC:100{$Think.lang.startturn}，100{$Think.lang.multiple}<br />ST:500{$Think.lang.startturn}，500{$Think.lang.multiple}</div>
+	</div>
+	<div class="buttonGeoup">
+		<a href="#" class="not_next" id="confirm">{$Think.lang.termine}</a>
+	</div>
+</div>
+
+
+
+<script type="text/javascript">
+	$(".buyChecked").on("click", function () {
+		$(this).addClass("on").siblings().removeClass("on");
+	})
+</script>
+
+<script type="text/javascript">
+
+	$(".downicon").click(function(){
+	    $(".showxian").toggle();
+	});
+
+	$('#dontai').hide();
+	function zichan(a){
+		var li = $(a).find('input[name="my"]')
+		li.checked = true;
+		if(li.val()==1){
+			$('#dontai').hide();
+			$('#zichan').show();
+		}else{
+			$('#zichan').hide();
+			$('#dontai').show();
+		}
+		
+	}
+	function checkcount(id,obj){
+		var id = id;
+		var storesc = {$store1['sc']};
+		var storesv = {$store1['dt_jifen']};
+		var gouid = $('input[name="my"]').val();
+		if(id==1){
+			$('.my').text('SC');
+			$('.mystore').text(storesc);
+			$('.myid').text('1');
+		}else{
+			$('.my').text('ST');
+			$('.mystore').text(storesv);
+			$('.myid').text('2');
+		}
+		console.log(gouid);
+	}
+</script>
+<!-- 	 -->
+<script type="text/javascript">
+	$(document).ready(function () {
+		$("#hide").click(function () {
+			$("#p1").toggle(); //toggle() 方法切换元素的可见状态。 如果被选元素可见,则隐藏这些元素,如果被选元素隐藏,则显示这些元素。
+		});
+	});
+</script>
+
+<script type="text/javascript">
+	$('#confirm').on('click', function () {
+		$("#p1").hide(); //toggle() 方法切换元素的可见状态。 如果被选元素可见,则隐藏这些元素,如果被选元素隐藏,则显示这些元素。
+		/*var issell = '{//$issell}';
+		if(issell != '1'){
+			msg_alert('需要买入第二单后才能卖出');
+			return ;
+		}*/
+		var existence = '{$existence}';
+
+		//var mairjie = $.trim($('.on').text()); //账号  //.trim() 去空格判断
+		//var my = $('input[name="my"]').val();
+		// if(my = 1){
+		// 	var mairjie = $.trim($('input[name="zichang"]').val()); //账号  //.trim() 去空格判断
+		// }else{
+		// 	var mairjie = $.trim($('input[name="dongtai"]').val());
+		// }
+		var  sellnums = $.trim($('input[name="zichang"]').val());
+		var  pwd = $.trim($('input[name="password"]').val());
+
+		if(sellnums==''){
+			msg_alert('请输入金额');
+			return;
+		}
+		if(sellnums%100 != 0){
+			msg_alert('请输入100的倍数');
+			return;
+		}
+		if(pwd==''){
+			msg_alert('请输入密码');
+			return;
+		}
+		var my =$('.myid').text();
+
+		$.ajax({
+			url:'/Trading/SellCentr',
+			type:'post',
+			data:{'sellnums':sellnums,'pwd':pwd,'my':my},
+			datatype:'json',
+			success:function (mes) {
+				if(mes.status == 1){
+					msg_alert(mes.message,mes.url);
+					
+				}else{
+					msg_alert(mes.message);
+					
+				}
+			}
+		})
+		
+		//$(".ftc_wzsf").show();
+	});
+
+	$(function () {
+		//关闭浮动
+		$(".close").click(function () {
+			$(".ftc_wzsf").hide();
+			$(".mm_box li").removeClass("mmdd");
+			$(".mm_box li").attr("data", "");
+			i = 0;
+		});
+		//数字显示隐藏
+		$(".xiaq_tb").click(function () {
+			$(".numb_box").slideUp(50000);
+		});
+		$(".mm_box").click(function () {
+			$(".numb_box").slideDown(50000);
+		});
+		//----
+		var i = 0;
+		$(".nub_ggg li .zf_num").click(function () {
+
+			if (i < 6) {
+				$(".mm_box li").eq(i).addClass("mmdd");
+				$(".mm_box li").eq(i).attr("data", $(this).text());
+				i++
+				if (i == 6) {
+					setTimeout(function () {
+						var pwd = "";
+						$(".mm_box li").each(function(){
+							pwd += $(this).attr("data");
+						});
+						//AJAX提交数据
+						var my = $('input[name="my"]').val();
+						if(my = 1){
+							var sellnums = $.trim($('input[name="zichang"]').val()); //账号  //.trim() 去空格判断
+						}else{
+							var sellnums = $.trim($('input[name="dongtai"]').val());
+						}
+						var num = $('#num').val();
+						var cardid = $('.carnumber').val();//银行卡id
+						var messge = $('.messge').val();
+						
+						if (cardid == '') {
+							msg_alert('请选择银行卡');
+							return;
+						}
+						$.ajax({
+							url:'/Trading/SellCentr',
+							type:'post',
+							data:{'sellnums':sellnums,'pwd':pwd,'cardid':cardid,'messge':messge,'my':my,'num':num},
+							datatype:'json',
+							success:function (mes) {
+								if(mes.status == 1){
+									msg_alert(mes.message);
+									$(".ftc_wzsf").hide();
+									$(".mm_box li").removeClass("mmdd");
+									$(".mm_box li").attr("data","");
+									i = 0;
+								}else{
+									msg_alert(mes.message);
+									$(".mm_box li").removeClass("mmdd");
+									$(".mm_box li").attr("data","");
+									i = 0;
+								}
+							}
+						})
+					}, 100);
+				};
+			}
+		});
+
+		$(".nub_ggg li .zf_del").click(function () {
+			if (i > 0) {
+				i--
+				$(".mm_box li").eq(i).removeClass("mmdd");
+				$(".mm_box li").eq(i).attr("data", "");
+			}
+		});
+
+		$(".nub_ggg li .zf_empty").click(function () {
+			$(".mm_box li").removeClass("mmdd");
+			$(".mm_box li").attr("data", "");
+			i = 0;
+		});
+
+	});
+</script>
+
+<!-- 数量加减 -->
+<script type="text/javascript">
+	window.onload = function(){
+		var plus = document.getElementById("plus");
+		var i = document.getElementById("num").value;
+		var subtract = document.getElementById("subtract");
+		var num = document.getElementById("num").value;
+		plus.onclick = function(){
+			i++;
+			document.getElementById("num").value = i;
+			document.getElementById("num").value = i*num;
+		}
+		subtract.onclick = function(){
+			if (i>1) {
+				i--;
+				document.getElementById("num").value = i;
+				document.getElementById("num").value = i*num;
+			}else{
+				i=1;
+				document.getElementById("num").value = i;
+				document.getElementById("num").value = i*num;
+			}
+		}               
+	}
+</script>
+
+</body>
+
+</html>

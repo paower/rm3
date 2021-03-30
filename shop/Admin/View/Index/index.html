@@ -1,0 +1,78 @@
+<extend name="Public/layout"/>
+
+<block name="main">
+    <div id="main" class="col-xs-12 col-sm-9 main" style="padding-right: 0;">
+            <!-- 面包屑导航 -->
+            <ul class="breadcrumb">
+                <li><i class="fa fa-map-marker"></i></li>
+                <li class="text-muted">首页</li>
+            </ul>
+            
+        <!-- 多标签后台内容部分 -->
+        <div class="tab-content ct-tab-content" >
+            <!-- 首页 -->
+            <div role="tabpanel" class="tab-pane fade in active" id="home">
+                <div class="dashboard clearfix">
+                    <div class="col-xs-12 col-sm-6 col-lg-6 ct-update">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <div class="update pull-right"></div>
+                                <i class="fa fa-cog"></i> 基本信息
+                            </div>
+                            <div class="panel-body">
+                                <table class="table table-condensed">
+                                    <tbody>
+                                        <tr>
+                                            <td>今日新增会员</td>
+                                            <td>
+                                                <a title="查看" href="{:U('User/index')}">
+                                                    {$user_count}
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>总会员数</td>
+                                            <td>
+                                                <a title="查看" href="{:U('User/index')}">
+                                                    {$user_total}
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>今日交易量</td>
+                                            <td>
+                                                <a title="查看" href="{:U('Finance/list1')}">
+                                                   {$traing}
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                        </div>
+                        <div>
+                            <div>高级</div>
+                            <volist name="gaoji_sum" id="vo">
+                                <div>排线码{$vo.line}---管理费{$vo.g}---烛光费{$vo.z}</div>
+                            </volist>
+                        </div>
+                        <div>
+                            <div>中级</div>
+                            <volist name="zhongji_sum" id="vo">
+                                <div>排线码{$vo.line}---管理费{$vo.g}---烛光费{$vo.z}</div>
+                            </volist>
+                        </div>
+                        <div>
+                            <div>低级</div>
+                            <volist name="diji_sum" id="vo">
+                                <div>排线码{$vo.line}---管理费{$vo.g}---烛光费{$vo.z}</div>
+                            </volist>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</block>

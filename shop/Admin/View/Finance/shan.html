@@ -1,0 +1,110 @@
+<extend name="Public/layout"/>
+<block name="style" >
+    <link rel="stylesheet" type="text/css" href="__LYUI__/css/lyui.extend.min.css">
+    <link rel="stylesheet" type="text/css" href="__ADMIN_CSS__/style.css">
+</block>
+
+<block name="main">
+   <div id="main" class="col-xs-12 col-sm-9 main" style="overflow-y: scroll;">
+        <!-- 面包屑导航 -->
+        <ul class="breadcrumb">
+            <li><i class="fa fa-map-marker"></i></li>
+            <foreach name="_menu_tab['name']" item="tab_v" >
+            <li class="text-muted">{$tab_v}</li>
+            </foreach>
+        </ul>
+
+        <!-- 主体内容区域 -->
+        <div class="tab-content ct-tab-content">
+            <div class="panel-body">
+                <div class="builder formbuilder-box">
+                        
+                        <div class="form-group"></div>
+
+                        <!-- 顶部工具栏按钮 -->
+                        <div class="builder-toolbar">
+                            <div class="row">
+                            </div>
+                        </div>
+                        
+                        <!-- 数据列表 -->
+                        <div class="builder-container">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="builder-table">
+                                        <div class="panel panel-default table-responsive">
+                                            <table class="table table-bordered table-striped table-hover">
+                                              <thead>
+                                                <tr>
+                                                    <th>
+                                                        <input class="check-all" type="checkbox">
+                                                    </th>
+                                                    <th>ID</th>
+                                                    <th>单号</th>
+                                                    <th>金额</th>
+                                                    <th>类型</th>
+                                                    <th>创建时间</th>
+                                                    <th>状态</th>
+                                                    <th>操作</th>
+                                                </tr>
+                                            </thead>
+                                                <tbody>
+                                                    <volist name="res" id="data">
+                                                        <tr>
+                                                            <td>
+                                                                <input class="ids" type="checkbox" value="{$data['id']}" name="ids[]">
+                                                            </td>
+                                                            <td>{$data['id']}</td>
+                                                            <td>{$data['pay_no']}</td>
+                                                            <td>{$data['pay_num']}</td>
+                                                            <td>
+                                                               <if condition="$data['type'] eq 1">
+                                                                买入SC
+                                                                <else/>
+                                                                卖出SC
+                                                                </if>
+                                                            </td>
+                                                            <td>{$data['pay_time']|date="Y-m-d",###}</td>
+                                                            <td>
+                                                                <if condition="$data['status'] eq 1">
+                                                                    通过
+                                                                <elseif condition="$data['status'] eq 2"/>
+                                                                    失败
+                                                                <else/>
+                                                                    未查看    
+                                                                </if>
+                                                            </td>
+                                                            <td>
+                                                                <a name="edit" title="编辑" class="label label-primary-outline label-pill" href="{:U('Finance/shandetail',array('id'=>$data['id']))}">查看</a>
+                                                               <!--  <a name="delete" title="删除" class="label label-danger-outline label-pill ajax-get confirm" model="News" href="{:U('News/setStatus',array('status'=>delete,'ids'=>$data['id'],'model'=>'News'))}">删除</a> -->
+                                                        </tr>
+                                                    </volist>
+
+                                                    <empty name="res">
+                                                        <tr class="builder-data-empty">
+                                                            <td class="text-center empty-info" colspan="20">
+                                                                <i class="fa fa-database"></i> 暂时没有数据<br>
+                                                            </td>
+                                                        </tr>
+                                                    </empty>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        <notempty name="table_data_page">
+                                            <ul class="pagination">{$table_data_page}</ul>
+                                        </notempty>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                </div>
+            </div>
+    </div>                   
+</div>
+</block>
+
+<block name="script">
+    <script type="text/javascript" src="__LYUI__/js/lyui.extend.min.js"></script>
+</block>

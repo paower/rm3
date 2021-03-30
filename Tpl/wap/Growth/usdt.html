@@ -1,0 +1,175 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<!-- <script src="../../../../jubaozuang/jubao/Themes/Home/nc/Public/js/JdClick.js"></script> -->
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>{$Think.lang.usdtbinding}</title>
+<link rel="stylesheet" href="__WCSS__/style.css">
+<link rel="stylesheet" href="__WCSS__/meCen.css">
+<script src="__WJS__/jquery1.11.1.min.js"></script>
+<script type="text/javascript" src="__COM__/layer/layer.js" ></script>
+<script type="text/javascript" src="__COM__/js/index.js"></script>
+
+<body class="bg96">
+<div class="header">
+	<div class="header_l">
+		<a href="javascript:history.go(-1)"><img src="__WIMG__/jiant.png" alt=""></a>
+	</div>
+	<div class="header_c"><h2>{$Think.lang.usdtbinding}</h2></div>
+	<div class="header_r"></div>
+</div>
+
+<div class="big_width100">
+	
+	<div class="add_bank_add_gr">
+		<div class="fill_sty add_gr_b10">
+			<p>{$Think.lang.usdtaddress}：</p>
+			<input type="text" name="other_account" placeholder="{$Think.lang.usdtaddress01}" autocomplete="off" id="yhk" value="{$wxinfo[usdt]}">
+		</div>
+		
+		<div class="fill_sty add_gr_b10 mababno">
+			<p>{$Think.lang.verificationcode}：</p>
+			<input type="text" name="other_account" placeholder="{$Think.lang.verificationcode}" autocomplete="off" id="khzy" style="width:30%" >
+			<span class="verificationcode01" id="mycode">{$Think.lang.verificationcode01}</span>
+		</div>
+	</div>
+	<div class="tips">{$Think.lang.addcard2}</div>
+	<label class="label_check" for="checkbox-01">
+		<input name="sample-checkbox-01" id="checkbox-01" value="1" type="checkbox" checked="">{$Think.lang.usdtdefaul}
+	</label>
+	<div class="buttonGeoup">
+		<a href="#" class="not_next" id="confirm">{$Think.lang.termine}</a>
+	</div>
+</div>
+<!-- 提示不能为空 -->
+<script type="text/javascript">
+
+    $('#confirm').on('click', function(){
+        
+        var yhk =$.trim($('#yhk').val()); //银行卡
+		var khzy = $.trim($('#khzy').val());
+        if(yhk == ''){
+            msg_alert('usdt地址有误');
+            return;
+        }
+
+        $.post("{:U('Growth/usdt')}",{yhk:yhk,'khzy':khzy},function(mes){
+            if(mes.status == 1){
+                msg_alert(mes.message,mes.url);
+            }else{
+                msg_alert(mes.message);
+            }
+        },"json");
+    });
+	
+	$('#mycode').click(function(){
+        
+        var mobile=123;
+        <!-- if(mobile=='' || mobile==null){ -->
+            <!-- msg_alert('请输入手机号码'); -->
+            <!-- return; -->
+        <!-- } -->
+        $.post("{:U('Growth/sendCode')}",{'mobile':mobile},function(data){
+            if(data.status==1){
+                msg_alert(data.message);
+                RemainTime();
+            }else{
+                msg_alert(data.message);
+            }
+        });
+        
+    });
+    
+    var intime="{$Think.session.set_time}";
+    var timenow ="<?php echo time(); ?>";
+
+    var bet=(parseInt(intime)+60)-parseInt(timenow);
+    $(document).ready(function(){
+        if(bet>0){
+            RemainTime();
+        }
+    });
+    var iTime = 59;
+    var Account;
+    if(bet>0){
+        iTime=bet;
+    }
+    function RemainTime(){
+        var iSecond,sSecond="",sTime="";
+        if (iTime >= 0){
+            iSecond = parseInt(iTime%60);
+            iMinute = parseInt(iTime/60)
+            if (iSecond >= 0){
+                if(iMinute>0){
+                    sSecond = iSecond + "秒后重新发送";
+                }else{
+                    sSecond = iSecond + "秒后重新发送";
+                }
+            }
+            sTime=sSecond;
+            if(iTime==0){
+                clearTimeout(Account);
+                sTime='获取验证码';
+                iTime = 59;
+            }else{
+                Account = setTimeout("RemainTime()",1000);
+                iTime=iTime-1;
+            }
+        }else{
+            sTime='没有倒计时';
+        }
+        $('#mycode').html(sTime);
+    }
+	
+	
+	
+</script>
+
+
+<script src="__WJS__/ansel_select.js"></script>
+<!--input  type="checkbox"  美化 -->
+<script>
+    function setupLabel() {
+        if ($('.label_check input').length) {
+            $('.label_check').each(function(){
+                $(this).removeClass('c_on');
+            });
+            $('.label_check input:checked').each(function(){
+                $(this).parent('label').addClass('c_on');
+            });
+        };
+        if ($('.label_radio input').length) {    /////
+            $('.label_radio').each(function(){
+                $(this).removeClass('r_on');
+            });
+            $('.label_radio input:checked').each(function(){
+                $(this).parent('label').addClass('r_on');
+            });
+        };
+    };
+    $(document).ready(function(){
+        $('body').addClass('has-js');
+        $('.label_check, .label_radio').click(function(){
+            setupLabel();
+        });
+        setupLabel();
+    });
+
+</script>
+<script>
+    //插件初始化配置
+    $('.select').anselcfg({});
+</script>
+
+<style type="text/css">
+    
+    .ansel_search{border-bottom: 1px solid #ff0000;}
+    .ansel_search input:-ms-input-placeholder{color:#ff0000}
+    .ansel_searchinput:-moz-placeholder{color:#ff0000}
+    .ansel_search input::-webkit-input-placeholder{color:#ff0000}
+    .demo{ margin-bottom: 0px;}
+    .tips{ margin: 10px 0; }
+</style>
+
+</body>
+
+</html>

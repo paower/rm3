@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>{$Think.lang.ywcdd}</title>
+<link rel="stylesheet" href="__WCSS__/style.css">
+<link rel="stylesheet" href="__WCSS__/meCen.css">
+<script src="__WJS__/jquery1.11.1.min.js"></script>
+<script type="text/javascript" src="__WJS__/responsive.tabs.js"></script>
+<script src="__WJS__/iscroll.js"></script>
+<script type="text/javascript" src="__WJS__/jquery.reveal.js"></script>
+<body class="bg96">
+
+<div class="header">
+    <div class="header_l">
+        <a href="javascript:history.go(-1)"><img src="__WIMG__/jiant.png" alt=""></a>
+    </div>
+    <div class="header_c"><h2>{$Think.lang.ywcdd}</h2></div>
+    <div class="header_r"></div>
+</div>
+
+	<div class="undone_order placeorder04">
+		<div class="undone_order_titel clear_wl">
+			<span>{$Think.lang.transferorder}<span class="complete">{$Think.lang.ywc}</span></span>
+		</div>
+	</div>
+	<div class="orderlist">
+		<p>{$Think.lang.transferamount}:</p><span>72:3000</span>
+		<p>{$Think.lang.ordernumber}:</p><span>SC35600CS</span><a href="{:U('Growth/Dofinsh')}" >{$Think.lang.viewdetails}</a>
+		<p>{$Think.lang.ordertime}:</p><span>2019-01-01 00:00:00</span>
+	</div>
+<div class="demo" style="display:none">
+    <div class="accordion">
+
+        <foreach name="orders" item="v">
+            <div class="accordion-handle">
+                <h4>
+                    <p class="accmrp">{$Think.lang.Buyamount}：{$v['pay_nums']}RMB<span class="acco_con_span">{$Think.lang.ywc}</span></p>
+                    <p>{$v['pay_time']|date="Y-m-d H:i:s",###}<span>{$Think.lang.skr}：{$v['uname']}</span></p>
+                </h4>
+                <i></i>
+            </div>
+            <div class="accordion-content por">
+                <div class="acco_con_up">
+                    <p>{$Think.lang.dkrxm}：<span> {$v['uname']}</span></p>
+                    <p>{$Think.lang.sjhm}：<span><?php
+                        echo substr_replace($v['umobile'],'****',3,4);
+                        ?></span></p>
+                    <p>{$Think.lang.jyje}：<span>{$v['pay_nums']}RMB</span></p>
+                    <p>{$Think.lang.zt}：<span class="acco_con_span">{$Think.lang.ywc}</span></p>
+                </div>
+                <div class="acco_con_upa">
+                    <h3>{$Think.lang.dkjt}</h3>
+                    <div class="shangcjt">
+                        <div class="containera">
+                            <a href="{:U('Growth/Paidimg',array('id'=>$v['id']))}"><img src="{$v['trans_img']}"  ></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </foreach>
+        <notempty name="page">
+            <ul class="pagination">{$page}</ul>
+        </notempty>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.accordion').respTabs({
+            model: 'accordions'
+        });
+    });
+</script>
+</body>
+</html>

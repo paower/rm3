@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<title>{$Think.lang.wd}</title>
+<link rel="stylesheet" href="__WCSS__/style.css">
+<link rel="stylesheet" href="__WCSS__/meCen.css">
+<link rel="stylesheet" href="__LAYUICSS__/layui.css">
+<script src="__WJS__/jquery1.11.1.min.js"></script>
+<script type="text/javascript" src="__COM__/layer/layer.js"></script>
+<script type="text/javascript" src="__COM__/js/index.js" ></script>
+<script type="text/javascript" src="__LAYUIJS__/layui.js"></script>
+
+<body class="bg96">
+
+	<div class="header">
+	    <div class="header_l">
+	    <a href="javascript:history.go(-1)"><img src="__WIMG__/jiant.png" alt=""></a>
+	    </div>
+	    <div class="header_c"><h2>{$Think.lang.wd}</h2></div>
+	    <div class="header_r"></div>
+	</div>
+
+       <div class="big_width100">
+           <div class="headcenter">
+			<div class="headinfo" style="z-index:100;border: none;">
+				<div class="child">
+					<div class="num">{$info[username]}</div>
+					<div class="title">{$Think.lang.friend}<button  id="friends" style="font-size:6px;height:20px;color:#fff;margin-left:3px;border-radius:10%;background:#ffb830">刷新</button></div>
+					<div class="num" id="sum">{$info.friends}{$Think.lang.ge}</div>
+				</div>
+				
+				<div class="child userinfo">
+					<div class="face"><img src="__IMGHEAD__/toux-icon.png"></div>
+					<div class="info" style="padding: 5px 0;">
+						<if condition="$info[is_jihuo] neq 0">
+							<p class="activation"><a href="#">{$Think.lang.yjh}</a><eq name="lengque" value="1">(已冻结)</eq></p>
+							<else/>
+							<p class="activation"><a href="#">{$Think.lang.wjh}</a><eq name="lengque" value="1">(已冻结)</eq></p>
+						</if>	
+					</div>
+					<div class="name">{$Think.lang.userid}:{$info[userid]}</div>
+					<div class="level">{$info[account]}</div>					
+				</div>
+				<div class="child" style="padding-top:10px;">
+					<div class="title">{$Think.lang.userlevel}</div>
+					<div class="num">
+						<if condition="$info.userlevel egt 4">4<else/>{$info.userlevel}</if>
+						{$Think.lang.jyh}
+					</div>
+					<div style="height:8px;"></div>
+					<div class="title">{$Think.lang.userwx}</div>
+					<div class="num">{$info[wx]}</div>
+				</div>
+				<div class="member_header"></div>
+			</div>
+		</div>
+		 
+		<a href="{:U('User/Setuname')}">
+			<div class=" grouplistfunction">
+				<p style="width:60%">{$Think.lang.upname}</p>
+			</div> 
+		</a>
+		<a href="{:U('index/changewx')}">
+			<div class=" grouplistfunction">
+				<p style="width:60%">{$Think.lang.wx}</p>
+			</div> 
+		</a>
+		<a href="{:U('User/passwordgl')}">
+		  <div class=" grouplistfunction">
+				<p>{$Think.lang.aqgl}</p>
+	      </div>
+		</a>
+		<a href="{:U('Growth/weixinbinding')}">
+			<div class=" grouplistfunction">
+				<p>{$Think.lang.skzh}</p>
+			</div>
+		 </a>
+		 <a href="{:U('User/superior')}"> 
+		<div class=" grouplistfunction">
+			<p style="width:60%">{$Think.lang.superiorinformation}</p>
+	      </div>
+		</a>
+		<a href="{:U('User/Teamdetails')}" id="wdtd"> 
+		<div class=" grouplistfunction">
+			<p>{$Think.lang.myfriend}</p>
+	      </div>
+		</a>  
+		<a href="{:U('User/News')}">
+		  <div class=" grouplistfunction">
+			<p style="width: 50%">{$Think.lang.xtgg}</p>
+	      </div>
+		</a> 
+		<a href="{:U('User/Complaint')}">  
+		  <div class=" grouplistfunction">
+			<p>{$Think.lang.feedback}</p>
+	      </div>
+		</a>  
+		<a href="{:U('User/commonproblem')}">
+		  <div class=" grouplistfunction">
+			<p>{$Think.lang.commonproblem}</p>
+	      </div>
+		</a> 
+		<a href="{:U('User/Aboutus')}">
+		  <div class=" grouplistfunction">
+	       	<p>{$Think.lang.lxkf}</p>
+	      </div>
+		</a>  
+          <div class="loginout">
+			<a href="{:U('User/Loginout')}">{$Think.lang.loginout}</a>
+		</div>
+	   </div>
+		
+		<div class="footer-fan">
+			<a href="{:U('Index/index')}">
+				<i class="layui-icon layui-icon-home" style="font-size: 20px; color: #fbd1a7;"></i> 
+				<p>{$Think.lang.home}</p>
+			</a>
+			<a href="{:U('Growth/Nofinsh')}">
+				<i class="layui-icon layui-icon-auz" style="font-size: 20px; color: #fbd1a7;"></i>
+				<p>{$Think.lang.pzsj}</p>
+			</a>
+			<a href="{:U('User/Sharecode')}">
+				<i class="layui-icon layui-icon-share" style="font-size: 20px; color: #fbd1a7;"></i>
+				<p>{$Think.lang.share}</p>
+			</a>
+			<a href="{:U('Index/allassets')}">
+				<i class="layui-icon layui-icon-username" style="font-size: 20px; color: #fbd1a7;"></i>
+				<p>{$Think.lang.wd}</p>
+			</a>
+		</div>
+		
+<script type="text/javascript">
+    $('#wdtd').click(function(){
+        //加载层
+        var index = layer.load(0, {shade: false}); //0代表加载的风格，支持0-2
+    })
+    $('#friends').click(function(){
+     var index = layer.load(0, {shade: false}); //0代表加载的风格，支持0-2
+     $.ajax({
+       type : "GET",
+       url : "{:U('index/friends')}", 
+       success : function(res){
+        layer.closeAll('loading'); 
+          $('#sum').text(res.message+'个');
+       }
+  });
+    })
+</script>
+</body>
+
+
+</html>

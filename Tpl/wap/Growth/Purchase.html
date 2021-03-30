@@ -1,0 +1,414 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>{$Think.lang.subscribe}</title>
+<link rel="stylesheet" href="__WCSS__/style.css">
+<link rel="stylesheet" href="__WCSS__/meCen.css">
+<script src="__WJS__/jquery1.11.1.min.js"></script>
+<script type="text/javascript" src="__COM__/layer/layer.js"></script>
+<script type="text/javascript" src="__COM__/js/index.js" ></script>
+
+<style>
+	.buyChecked{
+		outline: none;
+	}
+</style>
+
+<body class="bg96 ">
+
+<div class="header">
+	<div class="header_l">
+		<a href="{:U('Index/index')}"><img src="__WIMG__/jiant.png" alt=""></a>
+	</div>
+	<div class="header_c"><h2>{$Think.lang.subscribe}</h2></div>
+	<div class="header_r" style="display:none"><a href="javascript:void(0)" id="hide"><img src="__WIMG__/moer_icon.png" alt=""></a>
+		<div id="p1">
+			<div class="down"></div>
+			<ul>
+				<li><a href="{:U('Growth/Nofinsh')}">{$Think.lang.wwcdd}</a></li>
+				<li><a href="{:U('Growth/Conpay')}">{$Think.lang.qrdk}</a></li>
+				<li><a href="{:U('Growth/Dofinsh')}">{$Think.lang.ywcdd}</a></li>
+				<li><a href="{:U('Growth/Buyrecords')}">{$Think.lang.buyrecords}</a></li>
+				<li class="not"><a href="{:U('Growth/Buycenter')}">{$Think.lang.buycenter}</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="big_width100">
+	<div class="">
+		<div class="assetjiaoyi">
+			<a href="{:U('Growth/Purchase')}"><p class="about abouton">{$Think.lang.subscribe}</p></a>
+			<a href="{:U('Trading/SellCentr')}"><p class="turn">{$Think.lang.assignment}</p></a>
+		</div>
+		<div class="assetjiaoyict">
+			<p>{$Think.lang.foresightinterval}</p>
+			<span>
+				<ul class="inputassetbundle">
+					<li class="setmeal">{$Think.lang.prepurchasearea}</li>
+				</ul>	
+			</span>
+		</div>
+		<div class="expandselection">
+			<p>{$Think.lang.quantityordered}</p>
+			<span class="expandtitle" >
+					<div class="defaultchoice" id="scid">
+						<?php
+							if($grade==0){echo '临时用户';}
+							else{echo M('grade')->where(array('id'=>$grade))->getField('grade_name');}
+
+						?></div>
+					<div class="defaultchoice" id="scnum">
+						<div id="jine"><?php
+							if($grade==0){echo '';}
+							else{echo M('grade')->where(array('id'=>$grade))->getField('number');}
+						?></div>SC</div>
+					<input type="hidden" name="sellnums" value="<?php
+							if($grade==0){echo '';}
+							else{echo M('grade')->where(array('id'=>$grade))->getField('number');}
+						?>">
+				<a href="javascript:">	
+					<div class="downicon">
+						<img src="__WIMG__/downicon.png" />
+					</div>
+				</a>
+			</span>
+			<div class="expandlist"  style="display: none;">
+				<span class="listcolor">
+					<div>{$Think.lang.grade}</div><div>{$Think.lang.amount}</div>
+				</span>
+				<span>
+					<a href="javascript:" onclick="checkcount(1,this)"><div>V71</div><div>500SC</div></a>
+				</span>
+				<span class="listcolor">
+					<a href="javascript:" onclick="checkcount(2,this)"><div>V72</div><div>1000SC</div></a>
+				</span>
+				<span>
+					<a href="javascript:" onclick="checkcount(3,this)"><div>V73</div><div>3000SC</div></a>
+				</span>
+				<span class="listcolor">
+					<a href="javascript:" onclick="checkcount(4,this)"><div>V74</div><div>5000SC</div></a>
+				</span>
+				<span>
+					<a href="javascript:" onclick="checkcount(5,this)"><div>V75</div><div>10000SC</div></a>
+				</span>
+				<span class="listcolor">
+					<a href="javascript:" onclick="checkcount(6,this)"><div>V76</div><div>15000SC</div></a>
+				</span>
+				<span class="expandfoot">
+					<a href="javascript:" onclick="checkcount(7,this)"><div>V77</div><div>20000SC</div></a>
+				</span>
+			</div>
+		</div>
+		<div class="assetjiaoyict">
+			<p>{$Think.lang.transactionpassword}</p>
+			<span><input type="number" placeholder="{$Think.lang.transactionpassword1}" name="password" /></span>
+		</div>
+		
+	</div>
+	<div class="buttonGeoup">
+		<a href="#" class="not_next" id="confirm">{$Think.lang.termine}</a>
+	</div>
+</div>
+<div class="big_width100" style="display:none">
+	<div class="buy_aminy">
+		<h4>{$Think.lang.buywine}</h4>
+		<ul class="clear_wl">
+			<!-- <li class="buyChecked"><span><</span></li>
+			<li class="buyChecked"><span>1</span></li>
+			<li class="buyChecked"><span>></span></li> -->
+			<button class="buyChecked" style="width:50px" id="subtract">-</button>
+			<input class="buyChecked" type="number" id="num" value="1" oninput="value=value.replace(/^[0]+[^\d]*$/g,'')"/>
+			<button class="buyChecked" style="width:50px" id="plus">+</button>
+		</ul>
+	</div>
+	<div class="buy_aminy">
+		<h4>{$Think.lang.qxzmrje1}</h4>
+		<ul class="clear_wl">
+			<li class="buyChecked"><span>1000</span></li>
+			<li class="buyChecked" onclick="checkcount(1,this)"><span>2000</span></li>
+			<li class="buyChecked" onclick="checkcount(2,this)"><span>3000</span></li>
+		</ul>
+	</div>
+
+	<!--已存在的银行卡-->
+	<eq name="morecars['card_number']" value="">
+		<!--未添加银行卡-->
+		<div class="addCard">
+			<a href="{:U('Growth/Addbank')}">+{$Think.lang.addcard}</a>
+		</div>
+	<else />
+		<div class="haveCard">
+			<div class="bdingcard"><a href="{:U('Growth/Cardinfos')}"><h4>{$Think.lang.bdbankcard}</h4>
+				<p>&#62</p></a></div>
+			<div class="cardInfo">
+				<p>{$morecars['hold_name']}</p>
+				<p>{$morecars['banq_genre']}</p>
+				<p>{$morecars['card_number']}</p>
+				<input type="hidden" class="carnumber" value="{$morecars['id']}">
+			</div>
+			<div class="buttonGeoup">
+				<a href="javascript:void(0);" class="not_next ljzf_but " class="not_next" id="cuanjdd">{$Think.lang.createorder}</a>
+			</div>
+		</div>
+	</eq>
+
+</div>
+
+
+<script type="text/javascript">
+	function checkcount(id,obj){
+		var id = id;
+		var grade = {$grade};
+		var yugou = {$is_yugou};
+		if(yugou!=1){
+			if(id != grade){
+				msg_alert('无法预约当前额度');
+			}
+			if(id!=1){
+				if(id<grade){
+					msg_alert('无法预约当前额度');
+					return;
+				}
+				$('#jine').text('500');
+				$('#scid').text('V71');
+			}else if(id==2){
+				if(id<grade){
+					msg_alert('无法预约当前额度');
+					return;
+				}
+				$('#jine').text('1000');
+				$('#scid').text('V72');
+			}else if(id==3){
+				if(id<grade){
+					msg_alert('无法预约当前额度');
+					return;
+				}
+				$('#jine').text('3000');
+				$('#scid').text('V73');
+			}else if(id==4){
+				if(id<grade){
+					msg_alert('无法预约当前额度');
+					return;
+				}
+				$('#jine').text('5000');
+				$('#scid').text('V74');
+			}else if(id==5){
+				if(id<grade){
+					msg_alert('无法预约当前额度');
+					return;
+				}
+				$('#jine').text('10000');
+				$('#scid').text('V75');
+			}else if(id==6){
+				if(id<grade){
+					msg_alert('无法预约当前额度');
+					return;
+				}
+				$('#jine').text('15000');
+				$('#scid').text('V76');
+			}else if(id==7){
+				if(id<grade){
+					msg_alert('无法预约当前额度');
+					return;
+				}
+				$('#jine').text('20000');
+				$('#scid').text('V77');
+			}
+			var ti = $('#jine').text();
+		}else{
+			if(id>grade){
+				msg_alert('请先升级');
+				return;
+			}else if(id<grade){
+				msg_alert('无法预约当前额度');
+				return;
+			}
+		}
+		
+	}
+	$(".downicon").click(function(){
+	    $(".expandlist").toggle();
+	});
+
+	$(".buyChecked").on("click", function () {
+		$(this).addClass("on").siblings().removeClass("on");
+	})
+	$('#confirm').click(function(){
+		var grade = {$grade};
+		var sellnums = $('#jine').text();
+		console.log(sellnums);
+		var password = $('input[name="password"]').val();
+		if(grade==0){
+			msg_alert('临时用户不能交易');
+			return;
+		};
+		if(password==''){
+			msg_alert('请输入密码');
+			return;
+		};
+		$.ajax({
+			url:'/Growth/Purchase',
+			type:'post',
+			data:{'sellnums':sellnums,'pwd':password},
+			datatype:'json',
+			success:function (mes) {
+				if(mes.status == 1){
+					msg_alert(mes.message,mes.url);
+					
+				}else{
+					msg_alert(mes.message);
+					
+				}
+			}
+		})
+	});
+
+</script>
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		$("#hide").click(function () {
+			$("#p1").toggle(); //toggle() 方法切换元素的可见状态。 如果被选元素可见,则隐藏这些元素,如果被选元素隐藏,则显示这些元素。
+		});
+
+	});
+
+</script>
+
+<script type="text/javascript">
+	$('#cuanjdd').on('click', function () {
+		var mairjie = $.trim($('.on').text()); //账号  //.trim() 去空格判断
+
+		var exg = /^[1-9]\d*|0$/;
+		if (!exg.test(mairjie)) {
+			msg_alert('请选择买入金额~');
+			return;
+		}
+		
+		 var notpur = '{$notpur}';
+		 if(notpur != 1){
+		 	msg_alert('请{$day}天后在排单');
+		 	return ;
+		 }
+
+		//是否存在银行卡
+		var carnumber = $('.carnumber').val();
+		if(carnumber == ''){
+			msg_alert('请先添加银行卡~');
+			return;
+		}
+		$(".ftc_wzsf").show();
+
+	});
+
+	$(function () {
+		//关闭浮动
+		$(".close").click(function () {
+			$(".ftc_wzsf").hide();
+			$(".mm_box li").removeClass("mmdd");
+			$(".mm_box li").attr("data", "");
+			i = 0;
+		});
+		//数字显示隐藏
+		$(".xiaq_tb").click(function () {
+			$(".numb_box").slideUp(0);
+		});
+		$(".mm_box").click(function () {
+			$(".numb_box").slideDown(0);
+		});
+		//----
+		var i = 0;
+		$(".nub_ggg li .zf_num").click(function () {
+			if (i < 6) {
+				$(".mm_box li").eq(i).addClass("mmdd");
+				$(".mm_box li").eq(i).attr("data", $(this).text());
+				i++
+				if (i == 6) {
+					setTimeout(function () {
+						var pwd = "";
+						$(".mm_box li").each(function(){
+							pwd += $(this).attr("data");
+						});
+						//AJAX提交数据
+						var sellnums = $.trim($('.on').text()); //账号  //.trim() 去空格判断
+						var cardid = $('.carnumber').val();//银行卡id
+						var exg = /^[1-9]\d*|0$/;
+						if (!exg.test(sellnums)) {
+							msg_alert('请选择买入金额~');
+							return;
+						}
+						if (cardid == '') {
+							msg_alert('请选择银行卡');
+							return;
+						}
+						$.ajax({
+							url:'/Growth/Purchase',
+							type:'post',
+							data:{'sellnums':sellnums,'pwd':pwd,'cardid':cardid},
+							datatype:'json',
+							success:function (mes) {
+								if(mes.status == 1){
+									msg_alert(mes.message);
+									$(".ftc_wzsf").hide();
+									$(".mm_box li").removeClass("mmdd");
+									$(".mm_box li").attr("data","");
+									i = 0;
+								}else{
+									msg_alert(mes.message);
+									$(".mm_box li").removeClass("mmdd");
+									$(".mm_box li").attr("data","");
+									i = 0;
+								}
+							}
+						})
+					}, 100);
+				};
+			}
+		});
+
+		$(".nub_ggg li .zf_del").click(function () {
+			if (i > 0) {
+				i--
+				$(".mm_box li").eq(i).removeClass("mmdd");
+				$(".mm_box li").eq(i).attr("data", "");
+			}
+		});
+
+		$(".nub_ggg li .zf_empty").click(function () {
+			$(".mm_box li").removeClass("mmdd");
+			$(".mm_box li").attr("data", "");
+			i = 0;
+		});
+
+	});
+</script>
+
+<!-- 数量加减 -->
+<script type="text/javascript">
+	window.onload = function(){
+		var plus = document.getElementById("plus");
+		var i = document.getElementById("num").value;
+		var subtract = document.getElementById("subtract");
+		var num = document.getElementById("num").value;
+		plus.onclick = function(){
+			i++;
+			document.getElementById("num").value = i;
+			document.getElementById("num").value = i*num;
+		}
+		subtract.onclick = function(){
+			if (i>1) {
+				i--;
+				document.getElementById("num").value = i;
+				document.getElementById("num").value = i*num;
+			}else{
+				i=1;
+				document.getElementById("num").value = i;
+				document.getElementById("num").value = i*num;
+			}
+		}               
+	}
+</script>
+
+</body>
+
+</html>

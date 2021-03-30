@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<script src="../../../../jubaozuang/jubao/Themes/Home/nc/Public/js/JdClick.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>{$Think.lang.activateaccount}</title>
+<link rel="stylesheet" href="__WCSS__/style.css">
+<link rel="stylesheet" href="__WCSS__/meCen.css">
+<script src="__WJS__/jquery1.11.1.min.js"></script>
+<script type="text/javascript" src="__COM__/layer/layer.js" ></script>
+<script type="text/javascript" src="__COM__/js/index.js"></script>
+
+<body class="bg96">
+<div class="header">
+	<div class="header_l">
+		<a href="javascript:history.go(-1)"><img src="__WIMG__/jiant.png" alt=""></a>
+	</div>
+	<div class="header_c"><h2>{$Think.lang.activateaccount}</h2></div>
+	<div class="header_r"></div>
+</div>
+
+<div class="big_width100">
+	<div class="add_bank_add_gr">
+		<div class="scbalance scbalance01">
+			<p>SV{$Think.lang.assetbundle}</p>
+			<span id="number">{$res}</span>
+		</div> 
+		<div class="fill_sty currentlevel add_gr_b10">
+			<p>{$Think.lang.activateaccount}：</p>
+			<p>100</p>
+			<span class="predeposit">{$Think.lang.cny}</span>
+		</div>
+		<div class="fill_sty currentlevel add_gr_b10 mababno">
+			<p>{$Think.lang.needtopay}：</p>
+			<p><?php echo 100/$huan[coin_price];?></p>
+			<span class="predeposit">SV</span>
+		</div>
+        <div class="fill_sty currentlevel add_gr_b10 mababno">
+            <p>{$Think.lang.Preselection level}：</p>
+            
+                <select class="select1" isval="true" msg="{$Think.lang.upgradelevel}" id="khy" onchange="doSome()">
+                    <foreach name="gradelist" item="v">
+                        <option value="{$v['id']}" <if condition="$grade eq $v['id']-1">selected<else/></if> >{$v['grade_name']}
+                        </option>
+                    </foreach>
+                </select>
+            
+        </div>
+	</div>
+	<div class="buttonGeoup">
+		<a href="javascript:" class="not_next" id="confirm">{$Think.lang.Immediateactivation}</a>
+	</div>
+</div>
+<!-- 提示不能为空 -->
+<script type="text/javascript">
+function doSome(){
+   var yhk = $('#khy option:selected').val();
+   var num = {$grade};
+   var numbertext = $('#numbertext').val();  
+   if(yhk<=num){
+        msg_alert('您已经不能升级当前等级');
+        return;
+   };
+                
+  } 
+    $('#confirm').on('click', function(){
+        var userjihuo = {$userjihuo};
+        if(userjihuo==1){
+            msg_alert('您已激活');
+            return;
+        }
+        var number = $('#number').text();
+        if(number<50){
+            msg_alert('账户余额不足');
+            return;
+        }
+       var khy =$.trim($('#khy').val()); //
+
+        $.post("{:U('User/jihuo')}",{number:number,khy:khy},function(mes){
+            console.log(mes);
+            if(mes.status == 1){
+                msg_alert(mes.msg,mes.url);
+            }else{
+                msg_alert(mes.msg);
+            }
+        },"json");
+    });
+</script>
+
+
+<script src="__WJS__/ansel_select.js"></script>
+<!--input  type="checkbox"  美化 -->
+<script>
+    function setupLabel() {
+        if ($('.label_check input').length) {
+            $('.label_check').each(function(){
+                $(this).removeClass('c_on');
+            });
+            $('.label_check input:checked').each(function(){
+                $(this).parent('label').addClass('c_on');
+            });
+        };
+        if ($('.label_radio input').length) {    /////
+            $('.label_radio').each(function(){
+                $(this).removeClass('r_on');
+            });
+            $('.label_radio input:checked').each(function(){
+                $(this).parent('label').addClass('r_on');
+            });
+        };
+    };
+    $(document).ready(function(){
+        $('body').addClass('has-js');
+        $('.label_check, .label_radio').click(function(){
+            setupLabel();
+        });
+        setupLabel();
+    });
+
+</script>
+<script>
+    //插件初始化配置
+    $('.select').anselcfg({});
+</script>
+
+<style type="text/css">
+    
+    .ansel_search{border-bottom: 1px solid #ff0000;}
+    .ansel_search input:-ms-input-placeholder{color:#ff0000}
+    .ansel_searchinput:-moz-placeholder{color:#ff0000}
+    .ansel_search input::-webkit-input-placeholder{color:#ff0000}
+    .demo{ margin-bottom: 0px;}
+    .tips{ margin: 10px 0; }
+    .select1{width: 180px;height: 38px;appearance: none;-moz-appearance: none;-webkit-appearance: none;-ms-appearance: none; background:url("__WIMG__/jiantt.png") no-repeat scroll right center rgba(255,255,255,0);color:#fad4a7;padding:8px;outline:none;background-size: 17px;border:0;}
+    select option{height: 32px;line-height: 32px;padding: 0px 5px;cursor: pointer;color: #000}
+    option #no{display: none;}
+</style>
+
+</body>
+
+</html>

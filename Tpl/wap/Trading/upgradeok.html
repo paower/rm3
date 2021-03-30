@@ -1,0 +1,175 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>{$Think.lang.upgrade}</title>
+<link rel="stylesheet" href="__WCSS__/style.css">
+<link rel="stylesheet" href="__WCSS__/meCen.css">
+<script src="__WJS__/jquery1.11.1.min.js"></script>
+<script type="text/javascript" src="__WJS__/responsive.tabs.js"></script>
+<script src="__WJS__/iscroll.js"></script>
+<script type="text/javascript" src="__COM__/js/index.js" ></script>
+<script type="text/javascript" src="__COM__/layer/layer.js" ></script>
+<body class="bg96">
+
+<div class="header">
+	<div class="header_l">
+		<a href="javascript:history.go(-1)"><img src="__WIMG__/jiant.png" alt=""></a>
+	</div>
+	<div class="header_c"><h2>{$Think.lang.upgrade}</h2></div>
+	<div class="header_r"></div>
+</div>
+
+<div class="big_width100">
+	<div class="assetjiaoyi">
+		<a href="{:U('Growth/upgrade')}"><p class="about">{$Think.lang.tobepaid}</p></a>
+		<a href="{:U('Trading/upgradeok')}"><p class="turn abouton">{$Think.lang.paid}</p></a>
+	</div>
+	
+	<!-- 已付款订单开始 -->
+			<volist name="wait" id="vo">
+				<div class="undone_order placeorder06">
+				<div class="undone_order_titel clear_wl">
+					<span>{$Think.lang.tobeconfirmed}</span>
+				</div>
+				</div>
+				<div class="orderlist">
+					<p>{$Think.lang.ordernumber}:</p><span>{$vo.id}</span><a href="{:U('Trading/Paidimg',array('id'=>$vo['id']))}" >{$Think.lang.waitconfir}</a>
+					<p>{$Think.lang.amountmoney}:</p><span>{$vo.money}</span>
+					<p>{$Think.lang.user}ID:</p><span>{$vo.shouid}</span>
+					<p>{$Think.lang.superiorcellphone}:</p><span>{$vo.mobile}</span>
+					<p>{$Think.lang.superiorwx}:</p><span>{$vo.wx}</span>
+					<p>{$Think.lang.fksj}:</p><span>{$vo.paytime|date="Y-m-d H:i:s",###}</span>
+					<div class="ni"><p>{$Think.lang.skr}:</p><span class="text1">{$vo.username}</span>
+					</div>
+					<div class="ni"><p>{$Think.lang.mobile}:</p><span class="text2">{$vo.mobile}</span>
+					</div>
+					<div class="ni"><p>{$Think.lang.wx}:</p><span class="text3">{$vo.wx}</span>
+					</div>
+				</div>
+				<div style="height: 10px;"></div>
+			</volist>
+
+			<volist name="ok" id="vo">
+				<div class="undone_order placeorder05">
+				<div class="undone_order_titel clear_wl">
+					<span>{$Think.lang.ywc}</span>
+				</div>
+				</div>
+				<div class="orderlist">
+					<p>{$Think.lang.ordernumber}:</p><span>{$vo.id}</span>
+					<p>{$Think.lang.amountmoney}:</p><span>{$vo.money}</span>
+					<p>{$Think.lang.user}ID:</p><span>{$vo.shouid}</span>
+					<p>{$Think.lang.fksj}:</p><span>{$vo.paytime|date="Y-m-d H:i:s",###}</span>
+				</div>
+				<div style="height: 10px;"></div>
+			</volist>
+</div>	
+<script>
+	$.each($(".day-countdown"),function(){
+	    var timer = [];
+	    timer.push($(this).data("timestamp"));
+	    var pId = [];
+	    pId.push($(this).attr("id"));
+	    var date = new Date(parseInt(timer)*1000);
+	    if(timer!=0){
+	        setInterval(function(){
+	            ShowCountDown(
+	                date.getFullYear(),
+	                date.getMonth()+1,
+	                date.getDate(),date.getHours(),
+	                date.getMinutes(),
+	                date.getSeconds(),
+	                pId);
+	        },1000);
+	    }
+	});
+	function ShowCountDown(year,month,day,h,m,s,pname)
+	{
+	    var now = new Date();
+	    var endDate = new Date(year, month-1, day,h,m,s);
+	    var leftTime=endDate.getTime()-now.getTime();
+	    var leftsecond = parseInt(leftTime/1000);
+	    var day1=checkTime(Math.floor(leftsecond/(60*60*24)));
+	    var hour=checkTime(Math.floor((leftsecond-day1*24*60*60)/3600));
+	    var minute=checkTime(Math.floor((leftsecond-day1*24*60*60-hour*3600)/60));
+	    var second=checkTime(Math.floor(leftsecond-day1*24*60*60-hour*3600-minute*60));
+	    var cc = document.getElementById(pname);
+	    if(day1 <= 0 && hour <= 0 && minute <=0 && second <= 0){
+	        window.clearInterval();
+	    }else if(day1 === "0-1" || hour === "0NaN" || minute === "0NaN" || second === "0NaN"){
+	        window.clearInterval();
+	    }else if(day1 == "00" && (hour != "0" || minute != "0" || second != "0")){
+	        cc.innerHTML = hour+":"+minute+":"+second; //有效期在24小时内开始时分秒倒计时
+	    }else{
+	        if(cc != null){
+	            cc.innerHTML = parseInt(hour)+"{$Think.lang.hour}"+parseInt(minute)+"{$Think.lang.minute}"+parseInt(second)+"{$Think.lang.second}"; //有效期在24小时外以天为单位进行倒计时
+	        }
+	    }
+	}
+	 
+	function checkTime(i){
+	    if (i < 10) {
+	        i = "0" + i;
+	    }
+	    return i;
+	}
+
+
+	
+var times = $('#time').val();
+var intDiff = parseInt(times);//倒计时总秒数量
+function timer(intDiff){
+    window.setInterval(function(){
+    var day=0,
+        hour=0,
+        minute=0,
+        second=0;//时间默认值        
+    if(intDiff > 0){
+        hour = Math.floor(intDiff / (60 * 60)) - (day * 24);
+        minute = Math.floor(intDiff / 60) - (day * 24 * 60) - (hour * 60);
+        second = Math.floor(intDiff) - (day * 24 * 60 * 60) - (hour * 60 * 60) - (minute * 60);
+
+    }
+    if (minute <= 9) minute = '0' + minute;
+    if (second <= 9) second = '0' + second;
+    $('#hour').html(hour);
+    $('#minute').html(minute);
+    $('#second').html(second);
+    intDiff--;
+    }, 1000);
+}
+
+$(function(){
+    timer(intDiff);
+});
+</script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.accordion').respTabs({
+            model : 'accordions'
+        });
+    });
+
+
+    function quxiao(orderid){                
+
+	    $.ajax({
+	        url:'/Trading/quxiao_order',
+	        asyn:false,
+	        type:'post',
+	        data:{'id':orderid},
+	        datatype:'json',
+	        success:function (mes) {
+	          msg_alert(mes.message,mes.url);
+	          if(!mes.url)location.reload();
+
+	        }
+	    })
+
+	}
+
+</script>
+
+</body>
+
+</html>

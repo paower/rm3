@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>分享</title>
+<link rel="stylesheet" href="__WCSS__/style.css">
+<link rel="stylesheet" href="__WCSS__/meCen.css">
+<script src="__WJS__/jquery1.11.1.min.js"></script>
+<script type="text/javascript" src="__COM__/layer/layer.js"></script>
+<script type="text/javascript" src="__COM__/js/index.js" ></script>
+<link rel="stylesheet" href="__LAYUICSS__/layui.css">
+<script type="text/javascript" src="__WJS__/jquery-1.10.1.min.js"></script>
+<script type="text/javascript" src="__LAYUIJS__/layui.js"></script>
+
+<body class="bg96 bg_blue">
+	<div class="header">
+	    <div class="header_l" style="width:33.3%;">
+	    <a href="javascript:history.go(-1)"><img src="__WIMG__/jiant.png" alt=""></a>
+	    </div>
+		
+	    <div class="header_c" style="width:33.3%;"><h2>{$Think.lang.share}</h2></div>
+	    <div class="header_r" style="width:33.3%;"><a href="{:U('User/Teamdetails')}" >{$Think.lang.sharedetail}</a></div>
+	</div>
+	
+	<if condition="$level eq 0 || $num eq 2">
+		<if condition="$level eq 0">
+	 		<div class="fxfuzanj" style="width:90%;margin:50px auto; ">
+				<span style="height:35px; line-height:35px; text-align:center;display: block;">{$Think.lang.wfyq}</span>
+	        </div>
+	    <else/>
+		    <div class="fxfuzanj" style="width:90%;margin:50px auto; ">
+				<span style="height:35px; line-height:35px; text-align:center;display: block;">{$Think.lang.wfyq1}</span>
+		    </div>
+	    </if>
+ 	<else/>
+       <div class="big_width80">
+	     <div class="qrCodeGro qrCodeGroa">
+	     	<img src="{$urel}">
+	     </div>
+
+			<span style="width:100%;height:30px;display:block; text-align:center; margin-bottom:20px;font-size:16px;">{$Think.lang.yqid}:<span>{$userid}</span></span>
+
+	     <div class="fxfuzanj">
+             <span  class="fexianurltext">{$Think.lang.shareaddress}:</span>
+			 <span id="txt" class="fexianurl">{$aurl}</span>
+            <a href="javascript:void(0)"  onclick="copyUrl();" >{$Think.lang.svrightcopy}</a>
+         </div>
+	   </div>
+	</if>
+	<div class="footer-fan">
+		<a href="{:U('Index/index')}">
+			<i class="layui-icon layui-icon-home" style="font-size: 20px; color: #fbd1a7;"></i> 
+			<p>{$Think.lang.home}</p>
+		</a>
+		<a href="{:U('Growth/Nofinsh')}">
+			<i class="layui-icon layui-icon-auz" style="font-size: 20px; color: #fbd1a7;"></i>
+			<p>{$Think.lang.pzsj}</p>
+		</a>
+		<a href="{:U('User/Sharecode')}">
+			<i class="layui-icon layui-icon-share" style="font-size: 20px; color: #fbd1a7;"></i>
+			<p>{$Think.lang.share}</p>
+		</a>
+		<a href="{:U('Index/allassets')}" id="wd">
+			<i class="layui-icon layui-icon-username" style="font-size: 20px; color: #fbd1a7;"></i>
+			<p>{$Think.lang.wd}</p>
+		</a>
+	</div>
+    <script type="text/javascript">
+        function copyUrl()
+        {
+            var txt=$("#txt").text();
+            copy(txt);
+        }
+
+        function copy(message) {
+            var input = document.createElement("input");
+            input.value = message;
+            document.body.appendChild(input);
+            input.select();
+            input.setSelectionRange(0, input.value.length), document.execCommand('Copy');
+            document.body.removeChild(input);
+            alert("{$Think.lang.copysuccess}");
+        }
+    </script>
+	<script type="text/javascript">
+    $('#wd').click(function(){
+        //加载层
+        var index = layer.load(0, {shade: false}); //0代表加载的风格，支持0-2
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,300 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>{$Think.lang.myfriend}</title>
+<link rel="stylesheet" href="__WCSS__/style.css">
+<link rel="stylesheet" href="__WCSS__/meCen.css">
+<script src="__WJS__/jquery1.11.1.min.js"></script>
+<script type="text/javascript" src="__COM__/layer/layer.js"></script>
+<style>
+.sharelist p {
+    width: 24%;
+    float: left;
+    text-align: center;
+}
+</style>
+<body class="bg96">
+
+<div class="header">
+    <div class="header_l">
+        <a href="javascript:history.go(-1)"><img src="__WIMG__/jiant.png" alt=""></a>
+    </div>
+    <div class="header_c"><h2>{$Think.lang.myfriend}</h2></div>
+    <div class="header_r"></div>
+</div>
+
+<div class="big_width100 por">
+	<ul class="sharemain01">
+		<notempty name="pname">
+			<li>
+				<p>上级</p>
+				<p class="monum">{$pname}</p>
+			</li>
+		</notempty>
+		<li>
+			<p>推荐人数</p>
+			<p class="monum">{$tj}</p>
+		</li>
+		<li>
+			<p>激活人数</p>
+			<p class="monum">{$jh}</p>
+		</li>
+		<a href="{:U('detail')}">
+			<li>
+				<p>{$Think.lang.wdsr}</p>
+				<p class="monum">{$sum}</p>
+			</li>
+		</a>
+		<li>
+			<p>已结算</p>
+			<p class="monum">{$yjs}</p>
+		</li>
+	</ul>
+	<div class="sharedata">
+		<ul>
+			<li class="tuguandata01">{$Think.lang.tjcj}</li>
+			<li class="tuguandata02">{$Think.lang.team}</li>
+			<li class="tuguandata03">{$Think.lang.ysdd}</li>
+			<li class="tuguandata04">{$Think.lang.ld}</li>
+		</ul>
+	</div>
+	
+	<neq name="lengque" value="21600">
+	<ul class="sharemain01">
+		<li>
+			<p>您已达标,请升级</p>
+			<p class="monum">
+				<span>
+                	<i class="day-countdown" id="daojishi" data-timestamp="{$lengque}" name="daojishi">00天00:00:00</i>
+            	</span>
+			</p>
+		</li>
+	</ul>
+	</neq>
+	<ul class="sharemain">
+			{$res}
+			<!-- <a href="{:U('User/Teamdets?layer=1')}">
+				<li class="sharelist">
+					<p>{$Think.lang.dyic}</p>
+					<p>{$son1}</p>
+					<p>{$indent1}</p>
+					<p>{$lou1}</p>
+				</li>
+			</a>
+			<a href="{:U('User/Teamdets?layer=2')}">
+				<li class="sharelist">
+					<p>{$Think.lang.derc}</p>
+					<p>{$son2}</p>
+					<p>{$indent2}</p>
+					<p>{$lou2}</p>
+				</li>
+			</a>
+			<a href="{:U('User/Teamdets?layer=3')}">
+				<li class="sharelist">
+					<p>{$Think.lang.dsanc}</p>
+					<p>{$son3}</p>
+					<p>{$indent3}</p>
+					<p>{$lou3}</p>
+				</li>
+			</a>
+			<a href="{:U('User/Teamdets?layer=4')}">
+				<li class="sharelist">
+					<p>{$Think.lang.dsic}</p>
+					<p>{$son4}</p>
+					<p>{$indent4}</p>
+					<p>{$lou4}</p>
+				</li>
+			</a>
+			<a href="{:U('User/Teamdets?layer=5')}">
+				<li class="sharelist">
+					<p>第五层</p>
+					<p>{$son5}</p>
+					<p>{$indent5}</p>
+					<p>{$lou5}</p>
+				</li>
+			</a>
+			<a href="{:U('User/Teamdets?layer=6')}">
+				<li class="sharelist">
+					<p>第六层</p>
+					<p>{$son6}</p>
+					<p>{$indent6}</p>
+					<p>{$lou6}</p>
+				</li>
+			</a>
+			<a href="{:U('User/Teamdets?layer=7')}">
+				<li class="sharelist">
+					<p>第七层</p>
+					<p>{$son7}</p>
+					<p>{$indent7}</p>
+					<p>{$lou7}</p>
+				</li>
+			</a>
+			<a href="{:U('User/Teamdets?layer=8')}">
+				<li class="sharelist">
+					<p>第八层</p>
+					<p>{$son8}</p>
+					<p>{$indent8}</p>
+					<p>{$lou8}</p>
+				</li>
+			</a>
+		
+			<a href="{:U('User/Teamdets?layer=9')}">
+				<li class="sharelist">
+					<p>第九层</p>
+					<p>{$son9}</p>
+					<p>{$indent9}</p>
+					<p>{$lou9}</p>
+				</li>
+			</a>
+		
+			<a href="{:U('User/Teamdets?layer=10')}">
+				<li class="sharelist">
+					<p>第十层</p>
+					<p>{$son10}</p>
+					<p>{$indent10}</p>
+					<p>{$lou10}</p>
+				</li>
+			</a>
+		
+		<egt name="level" value="11">
+			<a href="{:U('User/Teamdets?layer=11')}">
+				<li class="sharelist">
+					<p>第十一层</p>
+					<p>{$son11}</p>
+					<p>{$indent11}</p>
+					<p>{$lou11}</p>
+				</li>
+			</a>
+		</egt>
+		<egt name="level" value="12">
+			<a href="{:U('User/Teamdets?layer=12')}">
+				<li class="sharelist">
+					<p>第十二层</p>
+					<p>{$son12}</p>
+					<p>{$indent12}</p>
+					<p>{$lou12}</p>
+				</li>
+			</a>
+		</egt>
+		<egt name="level" value="13">
+			<a href="{:U('User/Teamdets?layer=13')}">
+				<li class="sharelist">
+					<p>第十三层</p>
+					<p>{$son13}</p>
+					<p>{$indent13}</p>
+					<p>{$lou13}</p>
+				</li>
+			</a>
+		</egt>
+		<egt name="level" value="14">
+			<a href="{:U('User/Teamdets?layer=14')}">
+				<li class="sharelist">
+					<p>第十四层</p>
+					<p>{$son14}</p>
+					<p>{$indent14}</p>
+					<p>{$lou14}</p>
+				</li>
+			</a>
+		</egt>
+		<egt name="level" value="15">
+			<a href="{:U('User/Teamdets?layer=15')}">
+				<li class="sharelist">
+					<p>第十五层</p>
+					<p>{$son15}</p>
+					<p>{$indent15}</p>
+					<p>{$lou15}</p>
+				</li>
+			</a>
+		</egt>
+		<egt name="level" value="16">
+			<a href="{:U('User/Teamdets?layer=16')}">
+				<li class="sharelist">
+					<p>第十六层</p>
+					<p>{$son16}</p>
+					<p>{$indent16}</p>
+					<p>{$lou16}</p>
+				</li>
+			</a>
+		</egt> -->
+	</ul>
+</div>
+<script type="text/javascript">
+    $.each($(".day-countdown"),function(){
+            var timer = [];
+            timer.push($(this).data("timestamp"));
+            var divId = [];
+            divId.push($(this).attr("id"));
+            var date = new Date(parseInt(timer)*1000);
+            if(timer!=0){
+                setInterval(function(){
+                    ShowCountDown(
+                        date.getFullYear(),
+                        date.getMonth()+1,
+                        date.getDate(),date.getHours(),
+                        date.getMinutes(),
+                        date.getSeconds(),
+                        divId);
+                },1000);
+            }
+        });
+        function ShowCountDown(year,month,day,h,m,s,divname)
+        {
+            var now = new Date();
+            var endDate = new Date(year, month-1, day,h,m,s);
+            var leftTime=endDate.getTime()-now.getTime();
+            var leftsecond = parseInt(leftTime/1000);
+            var day1=checkTime(Math.floor(leftsecond/(60*60*24)));
+            // console.log(day1);
+            var hour=checkTime(Math.floor((leftsecond-day1*24*60*60)/3600));
+            var minute=checkTime(Math.floor((leftsecond-day1*24*60*60-hour*3600)/60));
+            var second=checkTime(Math.floor(leftsecond-day1*24*60*60-hour*3600-minute*60));
+            var cc = document.getElementById(divname);
+            if(day1 <= 0 && hour <= 0 && minute <=0 && second <= 0){
+                window.clearInterval();
+            }else if(day1 === "0-1" || hour === "0NaN" || minute === "0NaN" || second === "0NaN"){
+                window.clearInterval();
+            }else if(day1 == "00" && (hour != "0" && minute != "0" && second != "0")){
+                cc.innerHTML = hour+":"+minute+":"+second; //有效期在24小时内开始时分秒倒计时
+            }else{
+                if(cc != null){
+                    cc.innerHTML = parseInt(day1)+"天"; //有效期在24小时外以天为单位进行倒计时
+                }
+            }
+        }
+		
+        function checkTime(i){
+            if (i < 10) {
+                i = "0" + i;
+            }
+            return i;
+        }
+		function bohui(id){
+			layer.msg('确认驳回吗?', {
+				time:false,
+				btn: ['确定', '取消'],
+				btn1:function(index,layero){
+					$.get('{:U('Growth/quxiao')}',{id:id},function(res){
+						location.reload();
+					  });
+					  layer.close(index);
+				  },
+			  }); 
+		}
+</script>
+<script type="text/javascript">
+    function jihuo(id,pid){
+       
+        $.post('/User/jihuo',{'id':id,'pid':pid},function(res){
+            if(res.status == 1){
+                    layer.msg(res.msg);
+                    setTimeout("location.reload()",1000);
+                }else{
+                    layer.msg(res.msg);
+                    setTimeout("location.reload()",1000);
+                }
+        },'json');
+    }
+</script>
+</body>
+
+</html>

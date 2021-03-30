@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>{$Think.lang.exchange}</title>
+<link rel="stylesheet" href="__WCSS__/style.css">
+<link rel="stylesheet" href="__WCSS__/meCen.css">
+<script src="__WJS__/jquery1.11.1.min.js"></script>
+<script type="text/javascript" src="__COM__/layer/layer.js"></script>
+<script type="text/javascript" src="__COM__/js/index.js" ></script>
+
+
+<body class="bg96">
+
+	<div class="header">
+	    <div class="header_l">
+	    <a href="javascript:history.go(-1)"><img src="__WIMG__/jiant.png" alt=""></a>
+	    </div>
+	    <div class="header_c"><h2>{$Think.lang.exchange}</h2></div>
+	    <div class="header_r"></div>
+	</div>
+
+       <div class="big_width100">
+	   <div class="assetjiaoyi">
+			<p class="about" onclick="window.location='purchasesv.html'">{$Think.lang.purchase}SC</p>
+			<p class="turn"  onclick="window.location='selloutsv.html'">{$Think.lang.sellout}SC</p>
+		</div>
+		 <div class="fill_sty currentlevel">
+	       	<p>SC{$Think.lang.yue}：</p>
+			<p>{$yue}</p>
+	      </div>
+		 <div class="fill_sty currentlevel">
+	       	<p>{$Think.lang.selloutsl}：</p>
+	       	<input type="number" name="number" class="number" placeholder="{$Think.lang.qsrsl}" autocomplete="off" id="number"/>
+	      </div>
+		<div class="fill_sty currentlevel">
+	       	<p>{$Think.lang.conversion}USDT：</p>
+			<p class="usdt">0</p>
+	      </div>
+		  <div class="fill_sty currentlevel">
+	       	<p>USDT{$Think.lang.brokerage}：</p>
+			<p class="sxf">0</p>
+	      </div>
+		  <div class="fill_sty currentlevel">
+	       	<p>{$Think.lang.usdtaddress}：</p>
+			<p class="usdtaddress">{$userusdt}</p>
+			<span class="predeposit"><a href="javascript:" class="groupbutton" onclick="copyUrl();">{$Think.lang.svrightcopy}</a></span>
+	      </div>
+        <input type="hidden" class="pay_no" value="{$pay_no}">
+		  <div class="fill_sty">
+	       	<p>{$Think.lang.transactionpassword}：</p>
+			<input type="number" name="pwd" class="pwd" placeholder="{$Think.lang.transactionpassword1}" autocomplete="off" id="number"/>
+	      </div>
+          <div class="buttonGeoup">
+	       		<a href="javascript:void(0)"  class="not_next ljzf_but" id="aaa">{$Think.lang.sellout}</a>
+	       </div>
+	   </div>
+	   <script type="text/javascript">
+  $(".number").blur(function() {
+    var dhnums = $('.number').val();
+    var huan = {$usdt};
+    var sx = {$usdtsx};
+    var cha = dhnums/huan;
+    var sxf = cha*sx
+    $('.usdt').text(cha);
+    $('.sxf').text(sxf);
+  });
+      $('#aaa').on('click', function(){
+
+        var dhnums =$('.number').val(); //要兑换的数量
+        var pwd = $('.pwd').val();
+        var yue = {$yue};
+        var pay_no = $('.pay_no').val();
+        var usdtaddress = $('.usdtaddress').text();
+        if(dhnums>yue){
+          msg_alert('账户余额不足');
+          return;
+        }
+        if(usdtaddress==''){
+          msg_alert('usdt地址为空');
+          return;
+        }
+        $.ajax({
+          url:'/Index/selloutsv',
+          type:'post',
+          data:{'number':dhnums,'pwd':pwd,'usdtaddress':usdtaddress,'pay_no':pay_no},
+          datatype:'json',
+          success:function (mes) {
+              if(mes.status == 1){
+                  msg_alert(mes.message,mes.url);
+                  setTimeout(function(){  //使用  setTimeout（）方法设定定时2000毫秒
+                    window.location.reload();//页面刷新
+                  },2000);
+              }else{
+                  msg_alert(mes.message);
+              }
+          }
+      })
+
+      });
+	  function copyUrl()
+        {
+            var txt=$(".usdtaddress").text();
+            copy(txt);
+        }
+        function copy(message) {
+            var input = document.createElement("input");
+            input.value = message;
+            document.body.appendChild(input);
+            input.select();
+            input.setSelectionRange(0, input.value.length), document.execCommand('Copy');
+            document.body.removeChild(input);
+            alert("{$Think.lang.copysuccess}");
+        }
+		
+	  $(function(){
+        //关闭浮动
+        $(".close").click(function(){
+            $(".ftc_wzsf").hide();
+            $(".mm_box li").removeClass("mmdd");
+            $(".mm_box li").attr("data","");
+            i = 0;
+        });
+            //数字显示隐藏
+        $(".xiaq_tb").click(function(){
+            $(".numb_box").slideUp(500);
+        });
+        $(".mm_box").click(function(){
+            $(".numb_box").slideDown(500);
+        });
+            //----
+        var i = 0;
+        $(".nub_ggg li .zf_num").click(function(){
+                
+            if(i<6){
+                $(".mm_box li").eq(i).addClass("mmdd");
+                $(".mm_box li").eq(i).attr("data",$(this).text());
+                i++
+                if (i==6) {
+                  setTimeout(function(){
+                    var pwd = "";
+                        $(".mm_box li").each(function(){
+                        pwd += $(this).attr("data");
+                    });
+
+
+                      //ajax提交密码以及参数
+                      var dhnums =$('.dhnums').val(); //要兑换的数量
+                      $.ajax({
+                          url:'/Index/Exehange',
+                          type:'post',
+                          data:{'dhnums':dhnums,'pwd':pwd},
+                          datatype:'json',
+                          success:function (mes) {
+                              if(mes.status == 1){
+                                  msg_alert(mes.message,mes.url);
+                                  $(".ftc_wzsf").hide();
+                                  $(".mm_box li").removeClass("mmdd");
+                                  $(".mm_box li").attr("data","");
+                                  i = 0;
+                              }else{
+                                  msg_alert(mes.message);
+                                  $(".mm_box li").removeClass("mmdd");
+                                  $(".mm_box li").attr("data","");
+                                  i = 0;
+                              }
+                          }
+                      })
+                  },100);
+                };
+            }
+        });
+
+        $(".nub_ggg li .zf_del").click(function(){
+            if(i>0){
+                i--
+                $(".mm_box li").eq(i).removeClass("mmdd");
+                $(".mm_box li").eq(i).attr("data","");
+            }
+        });
+
+        $(".nub_ggg li .zf_empty").click(function(){
+            $(".mm_box li").removeClass("mmdd");
+            $(".mm_box li").attr("data","");
+            i = 0;
+        });
+         
+    });
+	   </script>
+
+</body>
+
+
+</html>

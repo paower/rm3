@@ -1,0 +1,183 @@
+<extend name="Public/layout"/>
+<block name="style" >
+	<link rel="stylesheet" type="text/css" href="__LYUI__/css/lyui.extend.min.css">
+	<link rel="stylesheet" type="text/css" href="__ADMIN_CSS__/style.css">
+</block>
+
+<block name="main">
+   <div id="main" class="col-xs-12 col-sm-9 main" style="overflow-y: scroll;">
+		<!-- 面包屑导航 -->
+		<ul class="breadcrumb">
+			<li><i class="fa fa-map-marker"></i></li>
+			<foreach name="_menu_tab['name']" item="tab_v" >
+			<li class="text-muted">{$tab_v}</li>
+			</foreach>
+		</ul>
+
+		<!-- 主体内容区域 -->
+		<div class="tab-content ct-tab-content">
+			<div class="panel-body">
+				<div class="builder formbuilder-box">
+					<div class="builder-tabs builder-form-tabs">
+						<?php $type=I('type'); ?>
+						<ul class="nav nav-tabs">
+							<li <neq name="type" value="over" >class="active"</neq> >
+								<a href="{:U('ActivateNum/index')}">交易匹配列表</a>
+							</li>
+						</ul>
+						<span>排单总金额:{$zong}</span>
+					</div>
+					<div class="form-group"></div>
+					<div class="builder-container" >
+						<div class="form-group"></div>
+
+						<!-- 数据列表 -->
+						<div class="builder-container">
+							<div class="row">
+								<div class="col-xs-12">
+									<div class="builder-table">
+										<div class="panel panel-default table-responsive">
+											<table class="table table-bordered table-striped table-hover">
+											  <thead>
+												<tr>
+													<th>订单号</th>
+													<th>买入会员ID</th>
+													<th>姓名</th>
+													<th>匹配人数</th>
+													<th>金额</th>
+													<th>剩余金额</th>
+													<th>卖出会员ID</th>
+													<th>匹配时间</th>
+													<th>排单时间</th>
+													<!-- <th>凭据</th> -->
+													<th>状态</th>
+													<th>操作</th>
+												</tr>
+											</thead>
+												<tbody>
+													<volist name="list" id="data">
+														<tr>
+															<td>{$data['pay_no']}</td>
+															<td>{$data['payin_id']}</td>
+															<td>{$data['username']}</td>
+															<td>{$data['peo_num']}</td>
+															<td>{$data['pay_nums']}</td>
+															<td>{$data['cangku_num']}</td>
+															<td>{$data['payout_id']}</td>
+															<td>
+																<if condition="$data['pipeitime'] eq 0">
+																		暂未匹配
+																<else/>
+																	{$data['pipeitime']|date='Y-m-d H:i:s',###}
+																	
+																</if>
+															</td>
+															<td>
+																<?php 
+																	$today = strtotime(date("Y-m-d"),time());
+																	$end = $today+60*60*24;
+																	$today=strtotime (date("Y-m-d H:i:s", $end));
+																	$past=strtotime (date('Y-m-d H:i:s',$data['pay_time'])); 
+																	$dif=ceil(($today-$past)/86400); 
+																	echo $dif;  
+																 ?>天
+															</td>
+															<!-- <td>
+																<a href="{$data['trans_img']}" target="_blank">
+																	<img src="{$data['trans_img']}" style="width:50px;height:50px;left:0px;z-Index:-1;"/>
+																</a>
+															</td> -->
+															<td>
+																<switch name="data[pay_state]">
+																	<case value="0">排队中，等待匹配</case>
+																	<case value="1">匹配完成，等待打款</case>
+																	<case value="2">打款完成，等待确认</case>
+																	<case value="3">确认完成</case>
+																	<case value="4"><p style="color: red;">卖家已投诉</p></case>
+																	<case value="5"><p style="color: red;">买家已投诉</p></case>
+																	<case value="6"><p style="color: red;">买家长时间未操作</p></case>
+																	<case value="7"><p style="color: red;">卖家长时间未操作</p></case>
+																</switch>
+															</td>
+															<td>
+																<if condition="$data['pay_state'] eq 4 or $data['pay_state'] eq 6">
+																	<a name="chongxin" title="取消匹配，重新上架" class="label label-danger-outline label-pill confirm"  href="{:U('Finance/chongxin',array('id'=>$data['id']))}">取消匹配，重新上架</a>
+																</if>
+																<if condition="$data['pay_state'] eq 7">
+																	<a name="chongxin" title="取消匹配，重新上架" class="label label-danger-outline label-pill confirm"  href="{:U('Finance/mchongxin',array('id'=>$data['id']))}">取消匹配，重新上架</a>
+																</if>
+																<a name="del" title="取消匹配，重新上架" class="label label-danger-outline label-pill confirm"href="javascript:" onclick="quxiao({$data['id']},this)">删除</a>
+															</td>
+														</tr>
+													</volist>
+
+													<empty name="list">
+														<tr class="builder-data-empty">
+															<td class="text-center empty-info" colspan="20">
+																<i class="fa fa-database"></i> 暂时没有数据<br>
+															</td>
+														</tr>
+													</empty>
+												</tbody>
+											</table>
+										</div>
+
+										<notempty name="table_data_page">
+											<ul class="pagination">{$table_data_page}</ul>
+										</notempty>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+			</div>
+		</div>
+	</div>                   
+</div>
+</block>
+
+<block name="script">
+	<script type="text/javascript" src="__LYUI__/js/lyui.extend.min.js"></script>
+	<script type="text/javascript">
+		
+		function settime(){
+			var id = $('#mid').attr('mid');
+			var dj_time = $('#recipient-name').val();
+			$.ajax({
+				url:'/admin/Finance/do_dj',
+				type:'post',
+				data:{'id':id,'dj_time':dj_time},
+				datatype:'json',
+				success:function (mes) {
+					if(mes.status == 1){
+						alert('非法操作！');
+					}else if(mes.status == 2){
+						alert('冻结时间需为整数且在0到20之间');
+					}else if(mes.status == 3){
+						alert('设置成功');
+						location.reload();
+					}
+				}
+			})
+		}
+		
+		function quxiao(id,obj){
+		$.ajax({
+			url:"{:U('Finance/delete')}",
+			data:{'id':id},
+			dataType:"json",
+			type:"post",
+			success:function(res){
+
+				if(res.code==1){
+					alert(res.msg);
+					window.location.reload();
+				}
+			},
+			error:function(){
+				alert(res.msg);
+			}
+		})
+	}
+	</script>
+</block>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>{$Think.lang.exehange}</title>
+<link rel="stylesheet" href="__WCSS__/style.css">
+<link rel="stylesheet" href="__WCSS__/meCen.css">
+<script src="__WJS__/jquery1.11.1.min.js"></script>
+<script type="text/javascript" src="__COM__/layer/layer.js"></script>
+<script type="text/javascript" src="__COM__/js/index.js" ></script>
+
+
+<body class="bg96"> 
+
+	<div class="header">
+	    <div class="header_l">
+	    <a href="javascript:history.go(-1)"><img src="__WIMG__/jiant.png" alt=""></a>
+	    </div>
+	    <div class="header_c"><h2>{$Think.lang.exehange}</h2></div>
+	    <div class="header_r"></div>
+	</div>
+
+       <div class="big_width100">
+           <div class="exehangebg">
+                <div class="Balance">	
+                    <a class="balance" href="javascript:;">
+                        <div class="info">
+                            <p>SV{$Think.lang.assetbundle}</p>
+                            <span class="jifen">{$minems['sv']}</span>
+                        </div>
+                    </a>
+                </div>
+		 </div>
+		 <div class="fill_sty currentlevel">
+	       	<p>{$Think.lang.nowprice}：</p>
+			<p>{$huan['coin_price']}</p>
+			<span class="predeposit">$</span>
+	      </div>
+		 <div class="fill_sty currentlevel">
+	       	<p>{$Think.lang.exehangenumber}：</p>
+	       	<input type="number" name="phone_number" class="dhnums" placeholder="{$Think.lang.qsrsl}" autocomplete="off" id="number"/>
+			<span class="predeposit">SV</span>
+	      </div>
+		<div class="fill_sty currentlevel">
+	       	<p>{$Think.lang.convertedquantity}：</p>
+			<p id="huan">0.00</p>
+			<span class="predeposit">SC</span>
+	      </div>
+		  <div class="fill_sty">
+	       	<p>{$Think.lang.transactionpassword}：</p>
+			<input type="number" name="phone_number" class="pwd" placeholder="{$Think.lang.transactionpassword1}" autocomplete="off" id="number"/>
+	      </div>
+          <div class="buttonGeoup">
+	       		<a href="javascript:void(0)"  class="not_next ljzf_but" id="aaa">{$Think.lang.termine}</a>
+	       </div>
+	   </div>
+	   <script type="text/javascript">
+      $(".dhnums").blur(function() {
+        var dhnums = $('.dhnums').val();
+        var dui = {$huan['coin_price']};
+        var huan  = dhnums* dui; 
+        $('#huan').text(huan);
+      });
+          $('#aaa').on('click', function(){
+          	var maxe=$('.jifen').text();//余额
+            var dhnums =$('.dhnums').val(); //要兑换的数量
+            var pwd = $('.pwd').val();
+            if(dhnums==''){
+              msg_alert('请输入数量');
+              return;
+            }
+            if(maxe<dhnums){
+              msg_alert('账户余额不足');
+              return;
+            }
+            if(pwd==''){
+              msg_alert('请输入交易密码');
+              return;
+            }
+            $.ajax({
+                url:'/Index/Exehange',
+                type:'post',
+                data:{'dhnums':dhnums,'pwd':pwd},
+                datatype:'json',
+                success:function (mes) {
+                    if(mes.status == 1){
+                        msg_alert(mes.message,mes.url);
+                    }else{
+                        msg_alert(mes.message);
+                    }
+                }
+            })
+
+  })
+	 
+	   </script>
+
+</body>
+
+
+</html>

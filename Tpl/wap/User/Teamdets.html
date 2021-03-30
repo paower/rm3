@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>{$Think.lang.leveldetails}</title>
+<link rel="stylesheet" href="__WCSS__/style.css">
+<link rel="stylesheet" href="__WCSS__/meCen.css">
+<script src="__WJS__/jquery1.11.1.min.js"></script>
+<script type="text/javascript" src="__COM__/layer/layer.js"></script>
+<script type="text/javascript" src="__COM__/js/index.js"></script>
+<body class="bg96">
+
+<div class="header">
+    <div class="header_l">
+        <a href="javascript:history.go(-1)"><img src="__WIMG__/jiant.png" alt=""></a>
+    </div>
+    <div class="header_c"><h2>{$Think.lang.leveldetails}</h2></div>
+    <div class="header_r"></div>
+</div>
+
+<div class="big_width100 por">
+			<ul class="sharemain">
+				<li class="sharelist">
+					<p>{$Think.lang.userid}</p>
+					<p>{$Think.lang.name}</p>
+					<p>{$Think.lang.mobile}</p>
+					<p>{$Think.lang.grade}</p>
+					<p>{$Think.lang.wx}</p>
+					<p>{$Think.lang.othersr}</p>
+				</li>
+                <volist name="son" id="vo">
+    				<li  class="sharelist type1">
+    					<p class="">{$vo['userid']}</p>
+    					<p>{$vo['username']}<if condition="$vo.is_cooling eq 1">(已冻结)</if></p>
+    					<p><span class="text1"><a href="#" onclick="copyUrl(1,this);">{$vo['mobile']}</a></span></p>
+    					<p class="">{$vo['userlevel']}</p>
+    					<p class="ni"><span class="text1"><a href="#" onclick="copyUrl(1,this);">{$vo['wx']}</a></span></p>
+    					<p class="adetailtitle3">{$vo['earning']}</p>
+    				</li>
+                </volist>
+</div>
+<script type="text/javascript">
+    function copyUrl(id,obj)
+        {
+            var txt=$(obj).parents(".ni").find("span").text();
+            copy(txt);
+        }
+
+        function copy(message) {
+            var input = document.createElement("input");
+            input.value = message;
+            document.body.appendChild(input);
+            input.select();
+            input.setSelectionRange(0, input.value.length), document.execCommand('Copy');
+            document.body.removeChild(input);
+            msg_alert("复制成功");
+        }
+</script>
+<script type="text/javascript">
+    function jihuo(id,pid){
+       
+        $.post('/User/jihuo',{'id':id,'pid':pid},function(res){
+            if(res.status == 1){
+                    layer.msg(res.msg);
+                    setTimeout("location.reload()",1000);
+                }else{
+                    layer.msg(res.msg);
+                    setTimeout("location.reload()",1000);
+                }
+        },'json');
+    }
+</script>
+</body>
+
+</html>

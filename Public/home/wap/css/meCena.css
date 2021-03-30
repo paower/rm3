@@ -1,0 +1,13 @@
+
+.myBankCard{ width: 94%; border-radius: 5px; background: #07122b; padding: 5px 3%; margin-bottom: 10px;}
+.myBankCard a{ width: 100%; display: block; }
+.myBankCard img{ float: left; display: block; width: 40px; margin-top: 15px;}
+.myBankCard .yhxx{ float: left; margin-left: 15px; }
+.myBankCard .yhxx p{ line-height: 35px; font-size: 16px; color: #222222;}
+
+.addBankCard{ width: 94%; border-radius: 5px; background: #fff; padding: 5px 3%; margin-bottom: 13px;     margin-top: 13px;}
+.addBankCard a{ width: 100%; display: block;background: url(../images/jiantt.png) no-repeat right center;
+    background-size: 18px 18px; }
+.addBankCard img{ float: left; display: block; width: 40px; }
+.addBankCard p{ line-height: 40px; font-size: 16px; color: #222222; margin-left: 15px;  float: left; }
+

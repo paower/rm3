@@ -1,0 +1,114 @@
+<extend name="Public/layout"/>
+<block name="style" >
+	<link rel="stylesheet" type="text/css" href="__LYUI__/css/lyui.extend.min.css">
+	<link rel="stylesheet" type="text/css" href="__ADMIN_CSS__/style.css">
+</block>
+
+<block name="main">
+   <div id="main" class="col-xs-12 col-sm-9 main" style="overflow-y: scroll;">
+		<!-- 面包屑导航 -->
+		<ul class="breadcrumb">
+			<li><i class="fa fa-map-marker"></i></li>
+			<foreach name="_menu_tab['name']" item="tab_v" >
+			<li class="text-muted">{$tab_v}</li>
+			</foreach>
+		</ul>
+
+		<!-- 主体内容区域 -->
+		<div class="tab-content ct-tab-content">
+			<div class="panel-body">
+				<div class="builder formbuilder-box">
+					<div class="builder-tabs builder-form-tabs">
+						<?php $type=I('type'); ?>
+						<ul class="nav nav-tabs">
+							<li <neq name="type" value="over" >class="active"</neq> >
+								<a href="{:U('ActivateNum/index')}">交易匹配列表</a>
+							</li>
+						</ul>
+					</div>
+					<div class="form-group"></div>
+					<div class="builder-container" >
+						<div class="form-group"></div>
+						
+						<!-- 数据列表 -->
+						<div class="builder-container">
+							<div class="row">
+								<div class="col-xs-12">
+									<div class="builder-table">
+										<div class="panel panel-default table-responsive">
+											<table class="table table-bordered table-striped table-hover">
+											  <thead>
+												<tr>
+													<th>订单号</th>
+													<th>升级会员ID</th>
+													<th>金额</th>
+													<th>批准会员ID</th>
+													<th>打款时间</th>
+													<th>状态</th>
+													<th>操作</th>
+												</tr>
+											</thead>
+												<tbody>
+													<volist name="indent" id="vo">
+														<tr>
+															<td>{$vo.id}</td>
+															<td>{$vo.uid}</td>
+															<td>{$vo.money}</td>
+															<td>{$vo.shouid}</td>
+															<td>{$vo.paytime|date='Y-m-d H:i:s',###}</td>
+															<td>
+																确认完成
+															</td>
+															<td><a name="del" title="删除" class="label label-danger-outline label-pill"  href="javascript:；" onclick="quxiao({$data['id']},this)">删除</a></td>
+														</tr>
+													</volist>
+
+													<empty name="indent">
+														<tr class="builder-data-empty">
+															
+															<td class="text-center empty-info" colspan="20">
+																<i class="fa fa-database"></i>暂时没有数据<br>
+															</td>
+														</tr>
+													</empty>
+												</tbody>
+											</table>
+										</div>
+
+										<notempty name="table_data_page">
+											<ul class="pagination">{$table_data_page}</ul>
+										</notempty>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+			</div>
+		</div>
+	</div>                   
+</div>
+</block>
+
+<block name="script">
+<script type="text/javascript">
+	function quxiao(id,obj){
+		$.ajax({
+			url:"{:U('Finance/delete')}",
+			data:{'id':id},
+			dataType:"json",
+			type:"post",
+			success:function(res){
+
+				if(res.code==1){
+					alert(res.msg);
+					window.location.reload();
+				}
+			},
+			error:function(){
+				alert(res.msg);
+			}
+		})
+	}
+</script>
+	<script type="text/javascript" src="__LYUI__/js/lyui.extend.min.js"></script>
+</block>

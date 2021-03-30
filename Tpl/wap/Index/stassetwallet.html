@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<script src="../../../../jubaozuang/jubao/Themes/Home/nc/Public/js/JdClick.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>ST{$Think.lang.assetwallet}</title>
+<link rel="stylesheet" href="__WCSS__/style.css">
+<link rel="stylesheet" href="__WCSS__/meCen.css">
+<script src="__WJS__/jquery1.11.1.min.js"></script>
+<script type="text/javascript" src="__COM__/layer/layer.js" ></script>
+<script type="text/javascript" src="__COM__/js/index.js"></script>
+
+<body class="bg96">
+<div class="header">
+	<div class="header_l">
+		<a href="javascript:history.go(-1)"><img src="__WIMG__/jiant.png" alt=""></a>
+	</div>
+	<div class="header_c"><h2>ST{$Think.lang.assetwallet}</h2></div>
+	<div class="header_r"></div>
+</div>
+
+<div class="big_width100">
+	<div class="add_bank_add_gr">
+		<div class="assetwallet assetwallet02">
+			<p>ST{$Think.lang.assetbundle}</p>
+			<span class="assetbalance">{$dj_num}</span>
+			<!-- <span class="jiaoyi"><a href="#" >{$Think.lang.jiaoyi}</a></span> -->
+		</div>
+		<ul class="assetwalletdetail">
+			<volist name="list" id="vo">
+			<if condition="$vo['get_type'] eq 36">
+				<li>
+					<p>{$vo['mobile']}<br />{$Think.lang.teamtradingzl}</p>
+					<p class="adetailtitle1">+{$vo['get_nums']} <span class="adetailtitle4">{$Think.lang.arrival}</span></p>
+					<p class="adetailtitle3">{$vo['get_time']|date="Y-m-d",###}<br />{$vo['get_time']|date="H:i:s",###}</p>
+				</li>
+			<elseif condition="$vo['get_type'] eq 9"/>
+				<li>
+					<p><br />{$Think.lang.sellout}</p>
+					<p class="adetailtitle1">{$vo['get_nums']} </p>
+					<p class="adetailtitle3">{$vo['get_time']|date="Y-m-d",###}<br />{$vo['get_time']|date="H:i:s",###}</p>
+				</li>
+			</if>
+			</volist>
+			<!-- <li>
+				<p>132****1111<br />一级{$Think.lang.tradingjl}</p>
+				<p class="adetailtitle1">+399 <span class="adetailtitle4">{$Think.lang.arrival}</span></p>
+				<p class="adetailtitle3">2019-01-01<br />00:00:00</p>
+			</li>
+			<li>
+				<p>132****1111<br />二级{$Think.lang.tradingjl}</p>
+				<p class="adetailtitle1">+399 <span class="adetailtitle4">{$Think.lang.arrival}</span></p>
+				<p class="adetailtitle3">2019-01-01<br />00:00:00</p>
+			</li>
+			<li>
+				<p>132****1111<br />三级{$Think.lang.tradingjl}</p>
+				<p class="adetailtitle1">+399 <span class="adetailtitle4">{$Think.lang.arrival}</span></p>
+				<p class="adetailtitle3">2019-01-01<br />00:00:00</p>
+			</li>
+			<li>
+				<p>132****1111<br />十级{$Think.lang.tradingjl}</p>
+				<p class="adetailtitle1">+399 <span class="adetailtitle4">{$Think.lang.arrival}</span></p>
+				<p class="adetailtitle3">2019-01-01<br />00:00:00</p>
+			</li> -->
+		</ul>	
+	</div>
+	
+</div>
+
+
+<script src="__WJS__/ansel_select.js"></script>
+<!--input  type="checkbox"  美化 -->
+<script>
+    function setupLabel() {
+        if ($('.label_check input').length) {
+            $('.label_check').each(function(){
+                $(this).removeClass('c_on');
+            });
+            $('.label_check input:checked').each(function(){
+                $(this).parent('label').addClass('c_on');
+            });
+        };
+        if ($('.label_radio input').length) {    /////
+            $('.label_radio').each(function(){
+                $(this).removeClass('r_on');
+            });
+            $('.label_radio input:checked').each(function(){
+                $(this).parent('label').addClass('r_on');
+            });
+        };
+    };
+    $(document).ready(function(){
+        $('body').addClass('has-js');
+        $('.label_check, .label_radio').click(function(){
+            setupLabel();
+        });
+        setupLabel();
+    });
+
+</script>
+<script>
+    //插件初始化配置
+    $('.select').anselcfg({});
+</script>
+
+<style type="text/css">
+    
+    .ansel_search{border-bottom: 1px solid #ff0000;}
+    .ansel_search input:-ms-input-placeholder{color:#ff0000}
+    .ansel_searchinput:-moz-placeholder{color:#ff0000}
+    .ansel_search input::-webkit-input-placeholder{color:#ff0000}
+    .demo{ margin-bottom: 0px;}
+    .tips{ margin: 10px 0; }
+</style>
+
+</body>
+
+</html>

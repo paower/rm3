@@ -1,0 +1,446 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>升级</title>
+<link rel="stylesheet" href="__WCSS__/style.css">
+<link rel="stylesheet" href="__WCSS__/meCen.css">
+<script src="__WJS__/jquery1.11.1.min.js"></script>
+<script type="text/javascript" src="__WJS__/responsive.tabs.js"></script>
+<script src="__WJS__/iscroll.js"></script>
+<script type="text/javascript" src="__COM__/js/index.js" ></script>
+<script type="text/javascript" src="__COM__/layer/layer.js"></script>
+<body class="bg96">
+
+<div class="header">
+	<div class="header_l">
+		<a href="{:U('Home/Index/index')}"><img src="__WIMG__/jiant.png" alt=""></a>
+	</div>
+	<div class="header_c"><h2>升级</h2></div>
+	<div class="header_r"></div>
+</div>
+
+<div class="big_width100">
+	<div class="assetjiaoyi">
+		<a href="{:U('Growth/upgrade')}"><p class="about abouton">待付款</p></a>
+		<a href="{:U('Trading/upgradeok')}"><p class="turn">已付款</p></a>
+	</div>
+<!-- 升级订单开始 -->
+		<if condition="(isset($info[0])) and (empty($info[0][src]))">
+			<div class="undone_order placeorder02">
+			<div class="undone_order_titel clear_wl">
+				<span>上一层订单</span>
+			</div>
+			</div>
+			<div class="orderlist">
+				<p>订单编号:</p><span>{$info.0.id}</span>
+				<a href='{:U("Growth/yes",array("id"=>$info[0][id]))}' >打开订单</a>
+				<p>金额:</p><span>{$info.0.money}</span>
+				
+				<p>用户ID:</p><span>{$info.0.shouid}</span>
+				<!-- <p>订单时间:</p><span class="orderdate">{$v['pipeitime']|date="Y-m-d H:i:s",###}</span> -->
+			</div>
+		</if>
+
+		<if condition="(isset($info[1])) and (empty($info[1][src]))">
+			<div class="undone_order placeorder02">
+			<div class="undone_order_titel clear_wl">
+				<span>上二层订单</span>
+			</div>
+			</div>
+			<div class="orderlist">
+				<p>订单编号:</p><span>{$info.1.id}</span>
+				<a href='{:U("Growth/yes",array("id"=>$info[1][id]))}' >打开订单</a>
+				<p>金额:</p><span>{$info.1.money}</span>
+				
+				<p>用户ID:</p><span>{$info.1.shouid}</span>
+				<!-- <p>订单时间:</p><span class="orderdate">{$v['pipeitime']|date="Y-m-d H:i:s",###}</span> -->
+			</div>
+		</if>
+
+		<if condition="(isset($info[2])) and (empty($info[2][src]))">
+			<div class="undone_order placeorder02">
+			<div class="undone_order_titel clear_wl">
+				<span>上三层订单</span>
+			</div>
+			</div>
+			<div class="orderlist">
+				<p>订单编号:</p><span>{$info.2.id}</span>
+				<a href='{:U("Growth/yes",array("id"=>$info[2][id]))}' >打开订单</a>
+				<p>金额:</p><span>{$info.2.money}</span>
+				<p>用户ID:</p><span>{$info.2.shouid}</span>
+				<!-- <p>订单时间:</p><span class="orderdate">{$v['pipeitime']|date="Y-m-d H:i:s",###}</span> -->
+			</div>
+		</if>
+
+		<if condition="(isset($info[3])) and (empty($info[3][src]))">
+			<div class="undone_order placeorder02">
+			<div class="undone_order_titel clear_wl">
+				<span>上四层订单</span>
+			</div>
+			</div>
+			<div class="orderlist">
+				<p>订单编号:</p><span>{$info.3.id}</span>
+				<a href='{:U("Growth/yes",array("id"=>$info[3][id]))}' >打开订单</a>
+				<p>金额:</p><span>{$info.3.money}</span>
+				<p>用户ID:</p><span>{$info.3.shouid}</span>
+				<!-- <p>订单时间:</p><span class="orderdate">{$v['pipeitime']|date="Y-m-d H:i:s",###}</span> -->
+			</div>
+		</if>
+
+		<if condition="(isset($info[4])) and (empty($info[4][src]))">
+			<div class="undone_order placeorder02">
+			<div class="undone_order_titel clear_wl">
+				<span>上五层订单</span>
+			</div>
+			</div>
+			<div class="orderlist">
+				<p>订单编号:</p><span>{$info.4.id}</span>
+				<a href='{:U("Growth/yes",array("id"=>$info[4][id]))}' >打开订单</a>
+				<p>金额:</p><span>{$info.4.money}</span>
+				<p>用户ID:</p><span>{$info.4.shouid}</span>
+				<!-- <p>订单时间:</p><span class="orderdate">{$v['pipeitime']|date="Y-m-d H:i:s",###}</span> -->
+			</div>
+		</if>
+
+		<if condition="(isset($info[5])) and (empty($info[5][src]))">
+			<div class="undone_order placeorder02">
+			<div class="undone_order_titel clear_wl">
+				<span>上六层订单</span>
+			</div>
+			</div>
+			<div class="orderlist">
+				<p>订单编号:</p><span>{$info.5.id}</span>
+				<a href='{:U("Growth/yes",array("id"=>$info[5][id]))}' >打开订单</a>
+				<p>金额:</p><span>{$info.5.money}</span>
+				<p>用户ID:</p><span>{$info.5.shouid}</span>
+				<!-- <p>订单时间:</p><span class="orderdate">{$v['pipeitime']|date="Y-m-d H:i:s",###}</span> -->
+			</div>
+		</if>
+
+		<if condition="(isset($info[6])) and (empty($info[6][src]))">
+			<div class="undone_order placeorder02">
+			<div class="undone_order_titel clear_wl">
+				<span>上七层订单</span>
+			</div>
+			</div>
+			<div class="orderlist">
+				<p>订单编号:</p><span>{$info.6.id}</span>
+				<a href='{:U("Growth/yes",array("id"=>$info[6][id]))}' >打开订单</a>
+				<p>金额:</p><span>{$info.6.money}</span>
+				<p>用户ID:</p><span>{$info.6.shouid}</span>
+				<!-- <p>订单时间:</p><span class="orderdate">{$v['pipeitime']|date="Y-m-d H:i:s",###}</span> -->
+			</div>
+		</if>
+
+		<if condition="(isset($info[7])) and (empty($info[7][src]))">
+			<div class="undone_order placeorder02">
+			<div class="undone_order_titel clear_wl">
+				<span>上八层订单</span>
+			</div>
+			</div>
+			<div class="orderlist">
+				<p>订单编号:</p><span>{$info.7.id}</span>
+				<a href='{:U("Growth/yes",array("id"=>$info[7][id]))}' >打开订单</a>
+				<p>金额:</p><span>{$info.7.money}</span>
+				<p>用户ID:</p><span>{$info.7.shouid}</span>
+				<!-- <p>订单时间:</p><span class="orderdate">{$v['pipeitime']|date="Y-m-d H:i:s",###}</span> -->
+			</div>
+		</if>
+
+		<if condition="(isset($info[8])) and (empty($info[8][src]))">
+			<div class="undone_order placeorder02">
+			<div class="undone_order_titel clear_wl">
+				<span>上九层订单</span>
+			</div>
+			</div>
+			<div class="orderlist">
+				<p>订单编号:</p><span>{$info.8.id}</span>
+				<a href='{:U("Growth/yes",array("id"=>$info[8][id]))}' >打开订单</a>
+				<p>金额:</p><span>{$info.8.money}</span>
+				<p>用户ID:</p><span>{$info.8.shouid}</span>
+				<!-- <p>订单时间:</p><span class="orderdate">{$v['pipeitime']|date="Y-m-d H:i:s",###}</span> -->
+			</div>
+		</if>
+
+		<if condition="(isset($info[9])) and (empty($info[9][src]))">
+			<div class="undone_order placeorder02">
+			<div class="undone_order_titel clear_wl">
+				<span>上十层订单</span>
+			</div>
+			</div>
+			<div class="orderlist">
+				<p>订单编号:</p><span>{$info.9.id}</span>
+				<a href='{:U("Growth/yes",array("id"=>$info[9][id]))}' >打开订单</a>
+				<p>金额:</p><span>{$info.9.money}</span>
+				<p>用户ID:</p><span>{$info.9.shouid}</span>
+				<!-- <p>订单时间:</p><span class="orderdate">{$v['pipeitime']|date="Y-m-d H:i:s",###}</span> -->
+			</div>
+		</if>
+
+		<if condition="(isset($info[10])) and (empty($info[10][src]))">
+			<div class="undone_order placeorder02">
+			<div class="undone_order_titel clear_wl">
+				<span>上十一层订单</span>
+			</div>
+			</div>
+			<div class="orderlist">
+				<p>订单编号:</p><span>{$info.10.id}</span>
+				<a href='{:U("Growth/yes",array("id"=>$info[10][id]))}' >打开订单</a>
+				<p>金额:</p><span>{$info.10.money}</span>
+				<p>用户ID:</p><span>{$info.10.shouid}</span>
+				<!-- <p>订单时间:</p><span class="orderdate">{$v['pipeitime']|date="Y-m-d H:i:s",###}</span> -->
+			</div>
+		</if>
+
+		<if condition="(isset($info[11])) and (empty($info[11][src]))">
+			<div class="undone_order placeorder02">
+			<div class="undone_order_titel clear_wl">
+				<span>上十二层订单</span>
+			</div>
+			</div>
+			<div class="orderlist">
+				<p>订单编号:</p><span>{$info.11.id}</span>
+				<a href='{:U("Growth/yes",array("id"=>$info[11][id]))}' >打开订单</a>
+				<p>金额:</p><span>{$info.11.money}</span>
+				<p>用户ID:</p><span>{$info.11.shouid}</span>
+				<!-- <p>订单时间:</p><span class="orderdate">{$v['pipeitime']|date="Y-m-d H:i:s",###}</span> -->
+			</div>
+		</if>
+
+		<if condition="(isset($info[12])) and (empty($info[12][src]))">
+			<div class="undone_order placeorder02">
+			<div class="undone_order_titel clear_wl">
+				<span>上十三层订单</span>
+			</div>
+			</div>
+			<div class="orderlist">
+				<p>订单编号:</p><span>{$info.12.id}</span>
+				<a href='{:U("Growth/yes",array("id"=>$info[12][id]))}' >打开订单</a>
+				<p>金额:</p><span>{$info.12.money}</span>
+				<p>用户ID:</p><span>{$info.12.shouid}</span>
+				<!-- <p>订单时间:</p><span class="orderdate">{$v['pipeitime']|date="Y-m-d H:i:s",###}</span> -->
+			</div>
+		</if>
+
+		<if condition="(isset($info[13])) and (empty($info[13][src]))">
+			<div class="undone_order placeorder02">
+			<div class="undone_order_titel clear_wl">
+				<span>上十四层订单</span>
+			</div>
+			</div>
+			<div class="orderlist">
+				<p>订单编号:</p><span>{$info.13.id}</span>
+				<a href='{:U("Growth/yes",array("id"=>$info[13][id]))}' >打开订单</a>
+				<p>金额:</p><span>{$info.13.money}</span>
+				<p>用户ID:</p><span>{$info.13.shouid}</span>
+				<!-- <p>订单时间:</p><span class="orderdate">{$v['pipeitime']|date="Y-m-d H:i:s",###}</span> -->
+			</div>
+		</if>
+
+		<if condition="(isset($info[14])) and (empty($info[14][src]))">
+			<div class="undone_order placeorder02">
+			<div class="undone_order_titel clear_wl">
+				<span>上十五层订单</span>
+			</div>
+			</div>
+			<div class="orderlist">
+				<p>订单编号:</p><span>{$info.14.id}</span>
+				<a href='{:U("Growth/yes",array("id"=>$info[14][id]))}' >打开订单</a>
+				<p>金额:</p><span>{$info.14.money}</span>
+				<p>用户ID:</p><span>{$info.14.shouid}</span>
+				<!-- <p>订单时间:</p><span class="orderdate">{$v['pipeitime']|date="Y-m-d H:i:s",###}</span> -->
+			</div>
+		</if>
+
+		<if condition="(isset($info[15])) and (empty($info[15][src]))">
+			<div class="undone_order placeorder02">
+			<div class="undone_order_titel clear_wl">
+				<span>上十六层订单</span>
+			</div>
+			</div>
+			<div class="orderlist">
+				<p>订单编号:</p><span>{$info.15.id}</span>
+				<a href='{:U("Growth/yes",array("id"=>$info[15][id]))}' >打开订单</a>
+				<p>金额:</p><span>{$info.15.money}</span>
+				<p>用户ID:</p><span>{$info.15.shouid}</span>
+				<!-- <p>订单时间:</p><span class="orderdate">{$v['pipeitime']|date="Y-m-d H:i:s",###}</span> -->
+			</div>
+		</if>
+		
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.accordion').respTabs({
+            model : 'accordions'
+        });
+    });
+$('.submit').click(function(){
+	layer.confirm('<span style="color:#000;">冻结168小时利息10%<br/>冻结336小时利息25%</span>', {
+		  btn: ['继续解冻','取消'] //按钮
+		}, function(){
+		  var id = $('input[name="yingc"]').val();
+		  var token_code = $('input[name="token_code"]').val();
+	        $.ajax({
+	            type:"POST",
+	            url:"{:U('Growth/Dofinsh')}",
+	            data:{'yingc':id,'token_code':token_code},
+	            dataType:"JSON",
+	            success:function(data){
+	            	console.log(data);
+	                if(data.status == 1){
+	                    msg_alert('领取成功');
+	                    window.location.reload();
+	                }else{
+	                    msg_alert('领取失败');
+	                }
+	            }
+	        })
+		}
+	);
+    
+})
+$('.futou').click(function(){
+	var id = $('input[name="futouid"]').val();
+	$.ajax({
+            type:"POST",
+            url:"{:U('Growth/futou')}",
+            data:{'futouid':id},
+            dataType:"JSON",
+            success:function(data){
+                if(data.status == 1){
+                    msg_alert('复投成功');
+                    window.location.reload();
+                }else{
+                    msg_alert('复投失败');
+                }
+            }
+        })
+})
+ function quxiao(orderid){                
+
+            $.ajax({
+                url:'/Growth/quxiao_order',
+                asyn:false,
+                type:'post',
+                data:{'id':orderid},
+                datatype:'json',
+                success:function (mes) {
+                  msg_alert(mes.message,mes.url);
+                  if(!mes.url)location.reload();
+
+                }
+            })
+
+     }    
+
+
+function tousu(id){
+	$.ajax({
+		url:'/Trading/tousu',
+		type:'post',
+		data:{'id':id},
+		datatype:'json',
+		success:function (mes) {
+		
+			if(mes.status == 1){
+                
+                msg_alert(mes.message);
+                
+            }else{
+                msg_alert(mes.message);
+			}
+        }
+	})
+}
+$.each($(".day-countdown"),function(){
+    var timer = [];
+    timer.push($(this).data("timestamp"));
+    var pId = [];
+    pId.push($(this).attr("id"));
+    var date = new Date(parseInt(timer)*1000);
+    if(timer!=0){
+        setInterval(function(){
+            ShowCountDown(
+                date.getFullYear(),
+                date.getMonth()+1,
+                date.getDate(),date.getHours(),
+                date.getMinutes(),
+                date.getSeconds(),
+                pId);
+        },1000);
+    }
+});
+function ShowCountDown(year,month,day,h,m,s,pname)
+{
+    var now = new Date();
+    var endDate = new Date(year, month-1, day,h,m,s);
+    var leftTime=endDate.getTime()-now.getTime();
+    var leftsecond = parseInt(leftTime/1000);
+    var day1=checkTime(Math.floor(leftsecond/(60*60*24)));
+    var hour=checkTime(Math.floor((leftsecond-day1*24*60*60)/3600));
+    var minute=checkTime(Math.floor((leftsecond-day1*24*60*60-hour*3600)/60));
+    var second=checkTime(Math.floor(leftsecond-day1*24*60*60-hour*3600-minute*60));
+    var cc = document.getElementById(pname);
+    if(day1 <= 0 && hour <= 0 && minute <=0 && second <= 0){
+        window.clearInterval();
+    }else if(day1 === "0-1" || hour === "0NaN" || minute === "0NaN" || second === "0NaN"){
+        window.clearInterval();
+    }else if(day1 == "00" && (hour != "0" || minute != "0" || second != "0")){
+        cc.innerHTML = hour+":"+minute+":"+second; //有效期在24小时内开始时分秒倒计时
+    }else{
+        if(cc != null){
+            cc.innerHTML = parseInt(day1)+"{$Think.lang.day}"+parseInt(hour)+"{$Think.lang.hour}"+parseInt(minute)+"{$Think.lang.minute}"+parseInt(second)+"{$Think.lang.second}"; //有效期在24小时外以天为单位进行倒计时
+        }
+    }
+}
+
+function line(year,month,day,h,m,s,pname) {
+     var time_start = new Date(); //设定当前时间
+	 var e_time = year+month+day+h+m+s
+	 var time_end = new Date(e_time).getTime(); //设定目标时间
+                // // 计算时间差
+     var time_distance = time_start - time_end;
+     // 天
+     var int_day = Math.floor(time_distance / 86400000)
+     time_distance -= int_day * 86400000;
+     // 时
+     var int_hour = Math.floor(time_distance / 3600000)
+     time_distance -= int_hour * 3600000;
+     // 分
+	var int_minute = Math.floor(time_distance / 60000)
+	time_distance -= int_minute * 60000;
+   	// 秒
+    var int_second = Math.floor(time_distance / 1000)
+     // 时分秒为单数时、前面加零
+    if (int_day < 10) {
+         int_day = "0" + int_day;
+    }
+    if (int_hour < 10) {
+         int_hour = "0" + int_hour;
+   	}
+    if (int_minute < 10) {
+        int_minute = "0" + int_minute;
+    }
+    if (int_second < 10) {
+    	int_second = "0" + int_second;
+    }
+    // 显示时间
+	$('.day-countdown').html(int_day+"{$Think.lang.day}"+int_hour+"{$Think.lang.hour}"+int_minute+"{$Think.lang.minute}"+int_second+"{$Think.lang.second}");
+    $("#online_d").html(int_day);
+    $("#online_h").html(int_hour);
+    $("#online_m").html(int_minute);
+	$("#online_s").html(int_second);
+   	// 设置定时器
+   	setTimeout("line()",1000);
+}
+function checkTime(i){
+    if (i < 10) {
+        i = "0" + i;
+    }
+    return i;
+}
+</script>
+
+</body>
+
+</html>

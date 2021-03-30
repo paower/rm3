@@ -1,0 +1,349 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta http-equiv="Content-Security-Policy" content="default-src 'unsafe-inline' 'unsafe-eval' 'self'  *.##.com;img-src 'self' data:;font-src 'self' data:;report-uri /error/csp.php" />
+<title>财富人脉</title>
+<link rel="stylesheet" href="__WCSS__/style.css">
+<link rel="stylesheet" href="__WCSS__/meCen.css">
+<link rel="stylesheet" href="__WCSS__/leftnav.css">
+<link rel="stylesheet" href="__LAYUICSS__/layui.css">
+<script type="text/javascript" src="__WJS__/jquery-1.10.1.min.js"></script>
+<script type="text/javascript" src="__LAYUIJS__/layui.js"></script>
+<script type="text/javascript" src="__COM__/layer/layer.js"></script>
+
+
+<style type="text/css">
+        .notice,
+        .notice ul,
+        .notice li {
+            margin: 0;
+            padding: 0;
+        }
+        .notice ul li ,.notice ul{
+            list-style: none;
+            height: 32px;
+        }
+        
+        .notice {
+            width: 300px;
+            height: 30px;
+            overflow: hidden;
+        }
+        
+        .notice li {
+            padding: 3px;
+        }
+</style>
+
+
+<!--线上JQ包-->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="__WJS__/jquery.glide.min.js"></script>
+<script type="text/javascript" src="__COM__/js/index.js"></script>
+
+<body class="bg96">
+<div class="header">
+    <div class="userInfo" style="width: 100%">
+		<a href="{:U('Index/allassets')}"><div class="toux_icon"><img src="__WIMG__/index/toux-icon.png"></div>
+    	<div class="uid_xy">
+    		<p style="float:left">UID:{$uinfo['userid']}</p>
+    	</div></a>	
+    </div>
+<script>
+    $(function(){
+        $('.type-right').click(function(){
+            $(this).prev('.type-left').toggleClass('showListType')
+        });
+        $('.type-left ul li').click(function(){
+            $(this).addClass('active').siblings('li').removeClass('active')
+        })
+    })
+</script>
+</div>
+
+<div class="big_width100" >
+	<div class="slider">
+		<ul class="slides">
+			<foreach name="pic_array" item="vo">
+				<li class="slide">
+					<div class="box" ><a href="{$vo['href']}"><img src="/Uploads/{$vo['picture']}" height="146px" alt="{$vo['title']}"></a></div>
+				</li>
+			</foreach>
+		</ul>
+	</div>
+	<div class="indexnews">
+		<div class="indexnews01">
+			<img src="__WIMG__/index/newsicon.png" alt="">
+			<div class="callboard notice" id="notice">
+				<ul id="noticeList">
+					<volist name="gonggao" id="vo">
+					<li >
+						<a href="{:U('News/NewsDetail',array('id'=>$gonggao['id']))}" style="color: #fdd2a7;">{$vo['title']}</a>
+					</li>
+					</volist>		
+				</ul>
+			</div>
+		</div>
+	</div>
+	<neq name="userlevel" value="16">
+		<div class="indexsv">
+			<div class="indexsv01">
+				<div class="svprofitleft">
+						<a class="upsvline" href="{:U('Growth/upgrade')}"><div class="svline">我要升级</div></a>
+				</div>
+			</div>
+		</div>
+	</neq>
+	<eq name="userlevel" value="16">
+		<div class="indexsv">
+			<div class="indexsv01">
+				<div class="svprofitleft">
+						<span class="upsvline"><div style="background-image: linear-gradient(160deg, #ffce00 20%,#ff8b00 80%);" class="svline">已升到顶级</div></span>
+				</div>
+			</div>
+		</div>
+	</eq>
+	<div class="indexsv">
+		<div class="indexsv01">
+		<volist name="explain" id="v">
+			<div class="svpriceleft">
+				<div class="svprice">{$v[title]}</div>
+				<div class="svaddress">{$v[content]|htmlspecialchars_decode}</div>
+			</div>
+		</volist>
+		</div>
+	</div>
+</div>
+<div class="footer-fan">
+	<a href="{:U('Index/index')}">
+		<i class="layui-icon layui-icon-home" style="font-size: 20px; color: #fbd1a7;"></i> 
+		<p>首页</p>
+	</a>
+	<a href="{:U('Growth/Nofinsh')}">
+		<i class="layui-icon layui-icon-auz" style="font-size: 20px; color: #fbd1a7;"></i>
+		<p>批准升级</p>
+	</a>
+	<a href="{:U('User/Sharecode')}">
+		<i class="layui-icon layui-icon-share" style="font-size: 20px; color: #fbd1a7;"></i>
+		<p>分享</p>
+	</a>
+	<a href="{:U('Index/allassets')}">
+		<i class="layui-icon layui-icon-username" style="font-size: 20px; color: #fbd1a7;"></i>
+		<p>我的</p>
+	</a>
+</div>
+<script type="text/javascript">
+function svline(){
+	$.ajax({
+			url:'Index/index',
+			type:'post',
+			data:{},
+			datatype:'json',
+			success:function (mes) {
+				console.log(mes);
+				if(mes.status == 1){
+				    msg_alert(mes.message,mes.url);
+					window.location.reload();
+				}else{
+
+                    msg_alert(mes.message);
+                }
+            }
+		})
+}
+function gradeChange(ss){
+
+       window.location.href="?l="+ss;
+}
+
+	$(document).ready(function(){
+  
+		setInterval(function(){
+			var usernum = Number($('#usernum').text());
+			var add_user = Number($('#add_user').text());
+			$.post('/Index/adduser1',{'add':1},function(res){
+				if(res.status==0){
+					usernum+=1;
+					add_user+=1;
+					$('#usernum').text(usernum)
+					$('#add_user').text(add_user);
+				}
+			},'json')
+		},1500000);
+    });
+</script>
+
+<script type="text/javascript">
+    $("#hide").click(function(){
+        var yue = Number($('.yue').text());
+        var jifen = Number($('.jifen').text());
+		var getnums = Number($('.getnums').text());//可获得金额
+		var releasey = (yue + getnums).toFixed(2);
+		var releasej = (jifen - getnums).toFixed(2);;
+		$.ajax({
+			url:'Index/index',
+			type:'post',
+			data:{'getnums':getnums},
+			datatype:'json',
+			success:function (mes) {
+				if(mes.status == 1){
+                    //alert(mes.message);
+				    msg_alert(mes.message,mes.url);
+                    $("#hide_none").hide(1000);
+                    //加余额-减少积分
+                    $('.yue').text(releasey);
+                    $('.jifen').text(releasej);
+				}else{
+
+                    msg_alert(mes.message);
+                }
+            }
+		})
+    });
+
+
+    function activation(){
+    	var yue = Number($('.yue').text());
+    	$.post('/Index/activation',{'vip_grade':1},function(res){
+    		if(res.status == 1){
+    			msg_alert(res.message);
+    			yue-=100;
+    			$('.yue').text(yue);
+    			setTimeout(function(){window.location.reload()},1000);
+    		}else{
+    			msg_alert(res.message);
+    		}
+    	},'json');
+    }
+
+    function upgrade(vip_grade){
+		return;
+    	var yue = Number($('.yue').text());
+    	var jifen = Number($('.jifen').text());
+    	$.get('/Index/upgrade',{'vip_grade':vip_grade},function(res){
+    		if(res.status == 1){
+    			msg_alert(res.message);
+    			yue-=500;
+    			$('.yue').text(yue);
+    			jifen +=1000;
+    			$('.jifen').text(jifen);
+    			setTimeout(function(){window.location.reload()},1000);
+    		}else if(res.status == 2){
+    			msg_alert(res.message);
+    			yue-=5000;
+    			$('.yue').text(yue);
+    			setTimeout(function(){window.location.reload()},1000);
+			}else{
+    			msg_alert(res.message);
+    		}
+    	},'json');
+    }
+
+	function msgAlert(){
+		msg_alert('您的等级不够！')
+	}
+function copyUrl()
+        {
+            var txt=$("#text").text();
+            copy(txt);
+        }
+
+        function copy(message) {
+            var input = document.createElement("input");
+            input.value = message;
+            document.body.appendChild(input);
+            input.select();
+            input.setSelectionRange(0, input.value.length), document.execCommand('Copy');
+            document.body.removeChild(input);
+            alert("{$Think.lang.copysuccess}");
+        }
+
+</script>
+
+
+<!--扫一扫调用-->
+<script>
+	function Dosaoyisao() {
+        qrcodeCallback();
+    }
+    function qrcodeCallback(result){
+		window.location.href=result;
+    }
+</script>
+
+<!-- 未激活弹窗 -->
+<script type="text/javascript">
+	function meiyoujihuo(){
+		layer.msg('请让推荐人激活喔~');
+	}
+
+	// function msg(){
+	// 	layer
+	// }
+</script>
+<script type="text/javascript">
+    var glide = $('.slider').glide({
+        //autoplay:true,//是否自动播放 默认值 true如果不需要就设置此值
+        animationTime:500, //动画过度效果，只有当浏览器支持CSS3的时候生效
+        arrows:false, //是否显示左右导航器
+        arrowsWrapperClass: "arrowsWrapper",//滑块箭头导航器外部DIV类名
+        arrowMainClass: "slider-arrow",//滑块箭头公共类名
+        arrowRightClass:"slider-arrow--right",//滑块右箭头类名
+        arrowLeftClass:"slider-arrow--left",//滑块左箭头类名
+        arrowRightText:">",//定义左右导航器文字或者符号也可以是类
+        arrowLeftText:"<",
+
+        nav:true, //主导航器也就是本例中显示的小方块
+        navCenter:true, //主导航器位置是否居中
+        navClass:"slider-nav",//主导航器外部div类名
+        navItemClass:"slider-nav__item", //本例中小方块的样式
+        navCurrentItemClass:"slider-nav__item--current" //被选中后的样式
+    });
+</script>
+<script type="text/javascript">
+        window.onload = function() {
+            var notice = document.getElementById("notice");
+            var noticeList = document.getElementById("noticeList");
+ 
+            // 获取ul下第一个li元素，好计算li的高度，因为后面滚动的时候每次要滚动一个高度，这里li都是一样高的，
+            // 所以获取第一个的高度就行了，不然要遍历获取每一个li的高度。
+            var noticeFirstItem = noticeList.querySelector("li");
+ 
+            // 获取li的高度，这里获取的是offsetHeight，关于js各种高度的定义可以注意以下
+            var scrollHeight = noticeFirstItem.offsetHeight;
+            // 是否可以进行动画
+            var opt = {
+                animated: true,
+                interval: 3000
+            };
+ 
+                // 动画之前首先重置
+                // noticeFirstItem.style.transition = "";
+                noticeFirstItem.style.marginTop = 0;
+                if (opt.animated) {
+                    opt.animated = false;
+                    animate(noticeList, scrollHeight, opt);
+                }
+        };
+ 
+        // 动画函数，obj——要产生动画的对象，sHeight——每次要滚动的距离，interval——多久滚动一次
+        function animate(obj, sHeight, option) {
+            // 当滚到最后一条公告的时候就不用动画了。
+            var stopHeight = sHeight - obj.scrollHeight;
+            var marginTopNum = 0;
+            var timer = setInterval(function() {
+                marginTopNum -= sHeight;
+                obj.style.marginTop = marginTopNum + "px";
+                obj.style.transition = "margin-top 1.5s ease";
+                // 注意这里的比较符号，前面得到的高度都进行四舍五入了
+                if (marginTopNum <= stopHeight) {
+                    clearInterval(timer);
+                    // option.animated = true;
+                }
+            }, option.interval);
+        }
+    </script>
+</body>
+
+</html>
+

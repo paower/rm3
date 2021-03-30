@@ -1,0 +1,180 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>付款详情</title>
+<link rel="stylesheet" href="__WCSS__/style.css">
+<link rel="stylesheet" href="__WCSS__/meCen.css">
+<script src="__WJS__/jquery1.11.1.min.js"></script>
+<script type="text/javascript" src="__WJS__/responsive.tabs.js"></script>
+<script src="__WJS__/iscroll.js"></script>
+<script type="text/javascript" src="__COM__/layer/layer.js"></script>
+<script type="text/javascript" src="__WJS__/jquery.form.js"></script>
+<script type="text/javascript" src="__COM__/js/index.js"></script>
+
+
+<body class="bg96">
+<div class="header">
+    <div class="header_l">
+        <a href="javascript:history.go(-1)"><img src="__WIMG__/jiant.png" alt=""></a>
+    </div>
+    <div class="header_c"><h2>付款详情</h2></div>
+    <div class="header_r"></div>
+</div>
+
+	<div class="undone_order placeorder03 contact">
+		<div class="undone_order_titel clear_wl">
+			当前时间:<span id="time"></span>
+			<span>{$Think.lang.amountmoney}：{$money}</span>
+		</div>		
+	</div>
+	<div class="orderlist">
+		<div class="ni"><p>收款人:</p><span class="text1">{$info.0.username}</span><a href="#" onclick="copyUrl(1,this);">{$Think.lang.svrightcopy}</a></div>
+		<div class="ni"><p>手机号:</p><span class="text2">{$info.0.mobile}</span><a href="#" onclick="copyUrl(2,this);">{$Think.lang.svrightcopy}</a></div>
+	</div>
+	
+	<div class="undone_order placeorder03">
+		<div class="undone_order_titel clear_wl">
+		</div>
+	</div>
+	<div class="orderlist">
+		<div class="ni"><p>{$Think.lang.alipay}:</p><span>{$info.0.zfb}</span><a href="#" onclick="copyUrl(1,this);">{$Think.lang.svrightcopy}</a></div>
+		<div class="ni"><p></p><span onClick="shoukuan(1,this)">查看收款人二维码</span></div>
+        <img src="{$info[0]['zfb_img']}" alt="" style="width: 100%;display: none;" class="zfb_img">
+	</div>
+	
+	<div class="undone_order placeorder03">
+		<div class="undone_order_titel clear_wl">
+		</div>
+	</div>
+	<div class="orderlist">
+		<div class="ni"><p>{$Think.lang.wechat}:</p><span>{$info.0.wx}</span><a href="#" onclick="copyUrl(1,this);">{$Think.lang.svrightcopy}</a></div>
+		<p></p><span onClick="shoukuan(2,this)">查看收款人二维码</span>
+        <img src="{$info[0]['wx_img']}" alt="" style="width: 100%;display: none;" class="wx_img">
+	</div>
+<script type="text/javascript">
+    setInterval("GetTime()", 1000)
+
+    function GetTime() {
+         var mon, day, now, hour, min, ampm, time, str, tz, end, beg, sec;
+         mon = new Array("一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月",
+                 "九月", "十月", "十一月", "十二月");
+         day = new Array("周日", "周一", "周二", "周三", "周四", "周五", "周六");
+         now = new Date();
+         hour = now.getHours();
+         min = now.getMinutes();
+         sec = now.getSeconds();
+         if (hour < 10) {
+             hour = "0" + hour;
+         }
+         if (min < 10) {
+             min = "0" + min;
+         }
+         if (sec < 10) {
+             sec = "0" + sec;
+         }
+         $("#time").html(
+             now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate()  + "  " + hour + ":" + min + ":" + sec
+             );
+     }
+</script>	
+<script>
+var intDiff = parseInt({$time2});//倒计时总秒数量
+function timer(intDiff){
+    window.setInterval(function(){
+    var day=0,
+        hour=0,
+        minute=0,
+        second=0;//时间默认值        
+    if(intDiff > 0){
+        hour = Math.floor(intDiff / (60 * 60)) - (day * 24);
+        minute = Math.floor(intDiff / 60) - (day * 24 * 60) - (hour * 60);
+        second = Math.floor(intDiff) - (day * 24 * 60 * 60) - (hour * 60 * 60) - (minute * 60);
+
+    }
+    if (minute <= 9) minute = '0' + minute;
+    if (second <= 9) second = '0' + second;
+    $('#hour').html(hour);
+    $('#minute').html(minute);
+    $('#second').html(second);
+    intDiff--;
+    }, 1000);
+}
+
+$(function(){
+    timer(intDiff);
+});
+</script>
+<script type="text/javascript">
+    function copyUrl(id,obj)
+        {
+            var txt=$(obj).parents(".ni").find("span").text();
+            copy(txt);
+        }
+
+        function copy(message) {
+            var input = document.createElement("input");
+            input.value = message;
+            document.body.appendChild(input);
+            input.select();
+            input.setSelectionRange(0, input.value.length), document.execCommand('Copy');
+            document.body.removeChild(input);
+            alert("{$Think.lang.copysuccess}");
+        }
+</script>
+<script type="text/javascript">
+    function shoukuan(id,obj){
+        if(id==1){
+            $('.zfb_img').toggle();
+        }else if(id==2){
+            $('.wx_img').toggle();
+        }
+       // console.log(id);
+    }
+    $(document).ready(function () {
+        $('.accordion,.changeclass').respTabs({
+            model: 'accordions'
+        });
+    });
+    // //
+   $('.shangcanj').change(function (e) {
+        var old_this = $(this);
+        var files = this.files;
+        var img = new Image();
+        var reader = new FileReader();
+        reader.readAsDataURL(files[0]);
+        reader.onload = function (e) {
+            var dx = (e.total / 1024) / 1024;
+            if (dx >= 2) {
+                alert("文件不能大于2M");
+                return;
+            }
+            img.src = this.result;
+            img.style.width = "100%";
+            img.style.height = "90%";
+            old_this.parents('#myupload').find('.containera').html(img);
+        }
+    })
+
+
+    $('.lanseanna').click(function () {
+        var old = $(this);
+        old.parents('.por').find('form').ajaxSubmit({
+            dataType: 'json', //数据格式为json
+            success: function (data) {
+                if (data.status == 1) {
+                    old.parents('.changeclass').find('.acco_con_spana').text('等待收款');
+                    old.text('已打款');
+                    old.addClass('paid').removeClass('lanseanna');
+                    msg_alert('打款凭证上传成功');
+                } else {
+                    msg_alert(data.message);
+                }
+            },
+            error: function (xhr) { //上传失败
+                alert("上传失败");
+            }
+        });
+    })
+</script>
+</body>
+</html>

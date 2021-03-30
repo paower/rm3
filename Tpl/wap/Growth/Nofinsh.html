@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>{$Think.lang.pzsj}</title>
+<link rel="stylesheet" href="__WCSS__/style.css">
+<link rel="stylesheet" href="__WCSS__/meCen.css">
+<script src="__WJS__/jquery1.11.1.min.js"></script>
+<script type="text/javascript" src="__WJS__/responsive.tabs.js"></script>
+<script src="__WJS__/iscroll.js"></script>
+<script type="text/javascript" src="__COM__/js/index.js" ></script>
+<script type="text/javascript" src="__COM__/layer/layer.js"></script>
+<body class="bg96">
+
+<div class="header">
+	<div class="header_l">
+		<a href="{:U('Home/Index/index')}"><img src="__WIMG__/jiant.png" alt=""></a>
+	</div>
+	<div class="header_c"><h2>{$Think.lang.pzsj}</h2></div>
+	<div class="header_r"></div>
+</div>
+
+<div class="big_width100">
+	<div class="assetjiaoyi">
+		<a href="{:U('Growth/Nofinsh')}"><p class="about abouton">{$Think.lang.dsj}</p></a>
+		<a href="{:U('Trading/Nofinsh')}"><p class="turn">{$Think.lang.ywc}</p></a>
+	</div>
+<!-- 升级订单开始 -->
+	<form action="{:U('Growth/Nofinsh')}" method="post">
+            <div class="zySearch">
+                <input id="searchInput" name="id" class="search-input" value="{$uinfo}" type="text" placeholder="{$Think.lang.ssuserid}">
+                <button class="search-btn btn">{$Think.lang.ss}</button>
+            </div>
+        </form>
+		
+        <if condition="isset($info)">
+        <volist name="info" id="vo">
+		<div class="undone_order placeorder02">
+		<div class="undone_order_titel clear_wl">
+			<span>{$Think.lang.dsj}</span>
+		</div>
+		</div>
+		<div class="orderlist">
+			<p>{$Think.lang.ordernumber}:</p><span>{$vo.id}</span>
+			<a href="{:U('Growth/drawee',array('id'=>$vo['id']))}" >{$Think.lang.tg}</a>
+			<p>{$Think.lang.amountmoney}:</p><span>{$vo.money}</span>
+			<!-- <a href="{:U('Growth/quxiao',array('id'=>$vo['id']))}" >驳&nbsp;&nbsp;回</a> -->
+			<a href="#" onclick="bohui('{$vo.id}')">{$Think.lang.bh}</a>
+			<p>{$Think.lang.userid}:</p><span>{$vo.uid}</span>
+			<p>{$Think.lang.xia}{$vo.xia}{$Think.lang.csj}:</p><span>{$vo.up}{$Think.lang.ji}</span>
+			<p>{$Think.lang.countdown}:</p>
+            <span>
+                <i class="day-countdown" id="{$vo.id}" data-timestamp="{$vo.daojishi}" name="daojishi">00天00:00:00</i>
+            </span>
+		</div>
+        </volist>
+        </if>
+</div>
+
+<script type="text/javascript">
+    $.each($(".day-countdown"),function(){
+            var timer = [];
+            timer.push($(this).data("timestamp"));
+            var divId = [];
+            divId.push($(this).attr("id"));
+            var date = new Date(parseInt(timer)*1000);
+            if(timer!=0){
+                setInterval(function(){
+                    ShowCountDown(
+                        date.getFullYear(),
+                        date.getMonth()+1,
+                        date.getDate(),date.getHours(),
+                        date.getMinutes(),
+                        date.getSeconds(),
+                        divId);
+                },1000);
+            }
+        });
+        function ShowCountDown(year,month,day,h,m,s,divname)
+        {
+            var now = new Date();
+            var endDate = new Date(year, month-1, day,h,m,s);
+            var leftTime=endDate.getTime()-now.getTime();
+            var leftsecond = parseInt(leftTime/1000);
+            var day1=checkTime(Math.floor(leftsecond/(60*60*6)));
+            // console.log(day1);
+            var hour=checkTime(Math.floor((leftsecond-day1*6*60*60)/3600));
+            var minute=checkTime(Math.floor((leftsecond-day1*6*60*60-hour*3600)/60));
+            var second=checkTime(Math.floor(leftsecond-day1*6*60*60-hour*3600-minute*60));
+            var cc = document.getElementById(divname);
+            if(day1 <= 0 && hour <= 0 && minute <=0 && second <= 0){
+                window.clearInterval();
+            }else if(day1 === "0-1" || hour === "0NaN" || minute === "0NaN" || second === "0NaN"){
+                window.clearInterval();
+            }else if(day1 == "00" && (hour != "0" && minute != "0" && second != "0")){
+                cc.innerHTML = hour+":"+minute+":"+second; //有效期在6小时内开始时分秒倒计时
+            }else{
+                if(cc != null){
+                    cc.innerHTML = parseInt(day1)+"天"; //有效期在6小时外以天为单位进行倒计时
+                }
+            }
+        }
+		
+        function checkTime(i){
+            if (i < 10) {
+                i = "0" + i;
+            }
+            return i;
+        }
+		function bohui(id){
+			layer.msg('确认驳回吗?', {
+				time:false,
+				btn: ['确定', '取消'],
+				btn1:function(index,layero){
+					$.get('{:U('Growth/quxiao')}',{id:id},function(res){
+						location.reload();
+					  });
+					  layer.close(index);
+				  },
+			  }); 
+		}
+</script>
+</body>
+
+</html>

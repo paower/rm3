@@ -1,0 +1,112 @@
+<extend name="Public/layout"/>
+<block name="style" >
+    <link rel="stylesheet" type="text/css" href="__LYUI__/css/lyui.extend.min.css">
+    <link rel="stylesheet" type="text/css" href="__ADMIN_CSS__/style.css">
+</block>
+
+<block name="main">
+   <div id="main" class="col-xs-12 col-sm-9 main" style="overflow-y: scroll;">
+        <!-- 面包屑导航 -->
+        <ul class="breadcrumb">
+            <li><i class="fa fa-map-marker"></i></li>
+            <foreach name="_menu_tab['name']" item="tab_v" >
+            <li class="text-muted">{$tab_v}</li>
+            </foreach>
+             <li class="text-muted">基本设置</li>
+        </ul>
+
+        <!-- 主体内容区域 -->
+        <div class="tab-content ct-tab-content">
+            <div class="panel-body">
+                <div class="builder formbuilder-box">
+                    <div class="builder-tabs builder-form-tabs">
+                        <ul class="nav nav-tabs">
+
+                            <li class="active">
+                                <a href="{:U('Config/group2',array('group'=>1))}">基本设置</a>
+                            </li>
+                       
+                           
+
+                            <li class="">
+                                <a href="{:U('Config/group',array('group'=>3))}">网站开关</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="form-group"></div>
+                    <div class="builder-container" >
+                        <div class="row" >
+                            <div class="col-xs-12" >
+                                <form action="{:U('Config/groupSave2')}" method="post" class="form-horizontal form form-builder">
+                                功能设置<hr style="margin-top: 0px;width: 100%">
+                                <div class="form-type-list">
+                                    <!-- <div class="form-group item_config[WEB_SITE_TITLE] "> -->
+                                        <!-- <label class="left control-label">打款时间</label> -->
+                                        <!-- <div style="width:200px" class="input-group"> -->
+                                            <!-- <input type="number" name="dk_time" class="form-control" value="{$dk_time}" placeholder="打款时间在多少之内" > -->
+                                            <!-- <span class="input-group-addon">小时</span> -->
+                                        <!-- </div> -->
+                                    <!-- </div> -->
+									<div class="form-group item_config[WEB_SITE_TITLE] ">
+                                        <label class="left control-label">确认时间</label>
+                                        <div style="width:200px" class="input-group">
+                                            <input type="number" name="dj_time" class="form-control" value="{$dj_time}" placeholder="确认时间在多少之内" >
+                                            <span class="input-group-addon">小时</span>
+                                        </div>
+                                    </div>
+									<div class="form-group item_config[WEB_SITE_TITLE] ">
+                                        <label class="left control-label">订单金额</label>
+                                        <div style="width:200px" class="input-group">
+                                            <input type="text" name="money" class="form-control" value="{$money}" >
+                                        </div>
+                                    </div>
+									<div class="form-group item_config[WEB_SITE_TITLE] ">
+                                        <label class="left control-label">联系客服qq号：</label>
+                                        <div style="width:200px" class="input-group">
+                                            <input type="text" name="service_qq" class="form-control" value="{$service_qq}" >
+                                        </div>
+                                    </div>
+									<div class="form-group item_config[WEB_SITE_TITLE] ">
+                                        <label class="left control-label">联系客服微信：</label>
+                                        <div style="width:200px" class="input-group">
+                                            <input type="text" name="service_wx" class="form-control" value="{$service_wx}" >
+                                        </div>
+                                    </div>
+                                    <!-- <div class="form-group item_config[WEB_SITE_TITLE] "> -->
+                                       <!-- <label class="left control-label">冻结开关：</label> -->
+                                        <!-- <div class="right"> -->
+                                            <!-- <div class="radio-inline cui-control cui-radio"> -->
+                                                <!-- <label for="config[ADMIN_TABS]0"> -->
+                                                    <!-- <input type="radio" id="config[ADMIN_TABS]0" class="radio" name="djkg" value="0" <eq name="djkg" value='0' > checked="true"</eq> >  -->
+                                                    <!-- <span class="cui-control-indicator"></span> -->
+                                                    <!-- <span>关闭</span> -->
+                                               <!-- </label> -->
+                                            <!-- </div> -->
+                                            <!-- <div class="radio-inline cui-control cui-radio"> -->
+                                                    <!-- <label for="config[ADMIN_TABS]1"> -->
+                                                        <!-- <input type="radio" id="config[ADMIN_TABS]1" class="radio" name="djkg" value="1" <eq name="djkg" value='1' > checked="true"</eq> >  -->
+                                                        <!-- <span class="cui-control-indicator"></span> -->
+                                                        <!-- <span>开启</span> -->
+                                                    <!-- </label> -->
+                                            <!-- </div>         -->
+                                        <!-- </div> -->
+
+                                    <!-- </div> -->
+                                    <div class="form-group bottom_button_list">
+                                        <a class="btn btn-primary submit ajax-post" type="submit" target-form="form-builder">确定</a>
+                                        <a class="btn btn-danger return" onclick="javascript:history.back(-1);return false;">取消</a>
+                                    </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>                   
+</div>
+</block>
+
+<block name="script">
+    <script type="text/javascript" src="__LYUI__/js/lyui.extend.min.js"></script>
+</block>

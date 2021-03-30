@@ -1,0 +1,154 @@
+<extend name="Public/layout"/>
+<block name="style" >
+	<link rel="stylesheet" type="text/css" href="__LYUI__/css/lyui.extend.min.css">
+	<link rel="stylesheet" type="text/css" href="__ADMIN_CSS__/style.css">
+</block>
+
+<block name="main">
+   <div id="main" class="col-xs-12 col-sm-9 main" style="overflow-y: scroll;">
+		<!-- 面包屑导航 -->
+		<ul class="breadcrumb">
+			<li><i class="fa fa-map-marker"></i></li>
+			<foreach name="_menu_tab['name']" item="tab_v" >
+			<li class="text-muted">{$tab_v}</li>
+			</foreach>
+		</ul>
+
+		<!-- 主体内容区域 -->
+		<div class="tab-content ct-tab-content">
+			<div class="panel-body">
+				<div class="builder formbuilder-box">
+					<div class="builder-tabs builder-form-tabs">
+						<?php $type=I('type'); ?>
+						<ul class="nav nav-tabs">
+							<li <neq name="type" value="over" >class="active"</neq> >
+								<a href="{:U('ActivateNum/index')}">交易匹配列表</a>
+							</li>
+						</ul>
+					</div>
+					<div class="form-group"></div>
+					<div class="builder-container" >
+						<div class="form-group"></div>
+						
+						<!-- 数据列表 -->
+						<div class="builder-container">
+							<div class="row">
+								<div class="col-xs-12">
+									<div class="builder-table">
+										<div class="panel panel-default table-responsive">
+											<table class="table table-bordered table-striped table-hover">
+											  <thead>
+												<tr>
+													<th>订单号</th>
+													<th>卖出会员ID</th>
+													<!-- <th>姓名</th> -->
+													<th>金额</th>
+													<!-- <th>剩余金额</th> -->
+													<th>买入会员ID</th>
+													<th>收款到账时间</th>
+													<!-- <th>凭据</th> -->
+													
+													<th>冻结结束时间</th>
+													<th>状态</th>
+													<th>操作</th>
+												</tr>
+											</thead>
+												<tbody>
+													<volist name="list" id="data">
+														<tr>
+															<td>{$data['pay_no']}</td>
+															<td>{$data['payout_id']}</td>
+															<!-- <td>{$data['username']}</td> -->
+															<td>{$data['pay_nums']}</td>
+															<!-- <td>{$data['cangku_num']}</td> -->
+															<td>{$data['payin_id']}</td>
+															<td>{$data['dj_set_time']|date='Y-m-d H:i:s',###}</td>
+
+															
+															<td>{$data['dj_time']|date='Y-m-d H:i:s',###}</td>
+															<td>
+																<if condition="$data['pay_state'] eq 0 ">排队中，等待匹配
+																	<elseif condition="$data['pay_state'] eq 1" /> 匹配完成，<span style="color:red">等待打款</span>
+																	<elseif condition="$data['pay_state'] eq 2" />打款完成，等待确认
+																	<elseif condition="$data['pay_state'] eq 3" />冻结中
+																	<elseif condition="$data['pay_state'] eq 100" />已解冻
+																</if>
+															</td>
+															<td>
+																<if condition="$data['pay_state'] eq 3">
+																<a  class="label label-danger-outline label-pill" href="javascript:" onclick="jiedong('{$data[id]}',this)">
+																	解冻
+																</a>
+																<else/>
+																</if>
+															</td>
+														</tr>
+													</volist>
+
+													<empty name="list">
+														<tr class="builder-data-empty">
+															
+															<td class="text-center empty-info" colspan="20">
+																<i class="fa fa-database"></i>暂时没有数据<br>
+															</td>
+														</tr>
+													</empty>
+												</tbody>
+											</table>
+										</div>
+
+										<notempty name="table_data_page">
+											<ul class="pagination">{$table_data_page}</ul>
+										</notempty>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+			</div>
+		</div>
+	</div>                   
+</div>
+</block>
+
+<block name="script">
+<script type="text/javascript">
+	function quxiao(id,obj){
+		$.ajax({
+			url:"{:U('Finance/qupipei')}",
+			data:{'id':id},
+			dataType:"json",
+			type:"post",
+			success:function(res){
+
+				if(res.code==1){
+					alert(res.msg);
+					window.location.reload();
+				}
+			},
+			error:function(){
+				alert(res.msg);
+			}
+		})
+	}
+	function jiedong(id,obj){
+		$.ajax({
+			url:"{:U('Finance/jiedong')}",
+			data:{'id':id},
+			dataType:"json",
+			type:"post",
+			success:function(res){
+			console.log(res);
+				if(res.code==1){
+					alert(res.msg);
+					window.location.reload();
+				}
+			},
+			error:function(){
+				alert(res.msg);
+			}
+		})
+	}
+</script>
+	<script type="text/javascript" src="__LYUI__/js/lyui.extend.min.js"></script>
+</block>

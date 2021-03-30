@@ -1,0 +1,203 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>{$Think.lang.paymentvoucher}</title>
+<link rel="stylesheet" href="__WCSS__/style.css">
+<link rel="stylesheet" href="__WCSS__/meCen.css">
+<script src="__WJS__/jquery1.11.1.min.js"></script>
+<script type="text/javascript" src="__WJS__/responsive.tabs.js"></script>
+<script src="__WJS__/iscroll.js"></script>
+<script type="text/javascript" src="__WJS__/jquery.reveal.js"></script>
+<script type="text/javascript" src="__COM__/layer/layer.js"></script>
+<script type="text/javascript" src="__WJS__/jquery.form.js"></script>
+<script type="text/javascript" src="__COM__/js/index.js"></script>
+<style type="text/css">
+    .pic{
+		width: 45%;
+		height: auto;
+		display: block;
+		padding: 65px 0;
+		margin: 0 auto;
+		cursor: pointer;
+		background-image: url(./nike3.jpeg);
+		background-size: cover;
+      }
+</style>
+<body class="bg96">
+
+<div class="header">
+	<div class="header_l">
+		<a href="javascript:history.go(-1)"
+		><img src="__WIMG__/jiant.png" alt=""></a>
+	</div>
+	<div class="header_c"><h2>{$Think.lang.paymentvoucher}</h2></div>
+	<div class="header_r"></div>
+</div>
+<!--  -->
+<div class="big_width100">
+
+  <div class="undone_order placeorder03 contact">
+    <div class="undone_order_titel clear_wl">
+      <span>
+	  <span style="float:left;">
+      {$Think.lang.currenttime}:
+	  </span>
+	  <span id="time"></span>
+      <span>{$Think.lang.amountmoney}：{$money}</span>
+      </span>
+    </div>
+  </div>
+
+	  <div class="orderlist">
+		<div class="ni"><p>{$Think.lang.skr}:</p><span class="text1">{$user.username}</span>
+		<a href="#" onclick="copyUrl(1,this);">{$Think.lang.svrightcopy}</a></div>
+		<div class="ni"><p>{$Think.lang.mobile}:</p><span class="text2">{$user.sk_mobile}</span>
+		<a href="#" onclick="copyUrl(2,this);">{$Think.lang.svrightcopy}</a></div>
+		<div class="ni"><p>{$Think.lang.wx}:</p><span class="text3">{$user.wx}</span>
+		<a href="#" onclick="copyUrl(3,this);">{$Think.lang.svrightcopy}</a></div>
+	  </div>
+	 <div class="orderlist">
+		<div class="ni"><p>{$user.sktype}{$Think.lang.account}:</p><span>{$user.zfb}</span>
+		<a href="#" onclick="copyUrl(3,this);">{$Think.lang.svrightcopy}</a></div>
+		<p style="width:100%;text-align:center;padding-left:0px;">{$Think.lang.paymentqrcode}</p>
+			<img src="{$user.skimg}" alt="" style="width: 100%;" class="wx_img">
+	  </div>
+	<div class="orderlist" style="border-top: #d36935 2px solid;">
+	<div>
+        <form>
+            <img class="pic" src="/Public/home/wap/images/addup.png">
+            <input class="upload" id="input_file" name="image" accept="image/*" type="file" style="display: none"/>
+        </form>
+		<div class="ni"><p></p><span class="text2" style="text-align:center;">{$Think.lang.uploadscreenshot}</span></div>
+    </div>
+	</div>
+	<div class="buttonGeoup">
+		<button type="button" class="not_next" style="border: 0px;">{$Think.lang.tijiao}</button>
+	</div>
+</div>
+
+</body>
+</html>
+<script type="text/javascript">
+    function copyUrl(id,obj)
+        {
+            var txt=$(obj).parents(".ni").find("span").text();
+            copy(txt);
+        }
+
+        function copy(message) {
+            var input = document.createElement("input");
+            input.value = message;
+            document.body.appendChild(input);
+            input.select();
+            input.setSelectionRange(0, input.value.length), document.execCommand('Copy');
+            document.body.removeChild(input);
+            msg_alert("复制成功");
+        }
+</script>
+<script>
+$(function() {
+  $(".pic").click(function () {
+    $(this).parent().find(".upload").click(); //隐藏了input:file样式后，点击头像就可以本地上传
+    $(this).parent().find(".upload").on("change",function(){
+      var objUrl = getObjectURL(this.files[0]) ; //获取图片的路径，该路径不是图片在本地的路径
+      if (objUrl) {
+        $(this).parent().find(".pic").attr("src", objUrl) ; //将图片路径存入src中，显示出图片
+      }
+    });
+  });
+
+  setInterval("GetTime()", 1000)
+
+
+
+});
+
+function getObjectURL(file) {
+    var url = null ;
+    if (window.createObjectURL!=undefined) { // basic
+        url = window.createObjectURL(file) ;
+    } else if (window.URL!=undefined) { // mozilla(firefox)
+        url = window.URL.createObjectURL(file) ;
+    } else if (window.webkitURL!=undefined) { // webkit or chrome
+        url = window.webkitURL.createObjectURL(file) ;
+    }
+    return url ;
+}
+
+function shoukuan(id,obj){
+        if(id==1){
+            $('.zfb_img').toggle();
+        }else if(id==2){
+            $('.wx_img').toggle();
+        }
+       // console.log(id);
+    }
+
+function GetTime() {
+         var mon, day, now, hour, min, ampm, time, str, tz, end, beg, sec;
+         mon = new Array("一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月",
+                 "九月", "十月", "十一月", "十二月");
+         day = new Array("周日", "周一", "周二", "周三", "周四", "周五", "周六");
+         now = new Date();
+         hour = now.getHours();
+         min = now.getMinutes();
+         sec = now.getSeconds();
+         if (hour < 10) {
+             hour = "0" + hour;
+         }
+         if (min < 10) {
+             min = "0" + min;
+         }
+         if (sec < 10) {
+             sec = "0" + sec;
+         }
+         $("#time").html(
+             now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate()  + "  " + hour + ":" + min + ":" + sec
+             );
+     }
+
+$('button').click(function(){
+  // var src = $('.upload').val();
+  // if(src!=""){
+  //   msg_alert('上传成功',{time:2000});
+  // }else{
+  //   msg_alert('请选择图片');
+  //   return;
+  // }
+
+  // // setTimeout(up, 2000)
+  // $('form').submit();
+  
+  var formData = new FormData(); 
+  formData.append('file', $('#input_file')[0].files[0]);  //添加图片信息的参数
+  formData.append('sizeid',123);  //添加其他参数
+  formData.append('id','{$id}');  //添加其他参数
+  $.ajax({
+      url: '{:U("growth/yes")}',
+      type: 'POST',
+      cache: false, //上传文件不需要缓存
+      data: formData,
+      processData: false, // 告诉jQuery不要去处理发送的数据
+      contentType: false, // 告诉jQuery不要去设置Content-Type请求头
+      success: function (data) {
+          if(data.status==1){
+              msg_alert('上传成功！');
+              window.location="{:U('growth/upgrade')}";
+          }else{
+              msg_alert(data.info);
+          }
+      },
+      error: function (data) {
+          msg_alert("上传失败");
+      }
+  })
+
+
+
+});
+
+function up(){
+  $('form').submit();
+}
+</script>

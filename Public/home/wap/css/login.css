@@ -1,0 +1,80 @@
+/* login */
+.bgf5{background:#f2f1f9;width: 100%;height: 100%;}
+.header_back {position: absolute;top: 10px;left: 10px;}
+.header_back img{width: .5rem;}
+.login-container{width: 100%;}
+.language{width: 100%;display: -webkit-box;display: -ms-flexbox;display: flex;-webkit-box-pack: end;-ms-flex-pack: end;justify-content: flex-end;padding: .5rem .3rem}
+.yuyan{font-size: .32rem;color: #1080c3;display: flex;align-items: center;}
+.yuyan select{font-size: .28rem;background: none;border: none;color: #117fc3;outline: none;} 
+.yuyan option{color: #117fc3;background: #fff;}
+.logo{ width:100%; text-align: center;position: relative;top: -0.95rem}
+.logo img{ width: 2.9rem;  }
+.formbox{ width: 90%; margin: 0 auto; margin-top: 2.2rem; text-align: center; border-radius:8px; -webkit-border-radius:8px; -moz-border-radius:8px; -ms-border-radius:8px; -o-border-radius:8px; }
+.formlogin{width:85%;margin: 0 auto;color: #1080c3;font-size: .28rem;position: relative;top: -0.55rem;}
+.input_box{
+	width: 100%;
+    height: .85rem;
+    border-bottom: .02rem solid #e5e1e1;
+}
+.lefticon{
+	width:13%;
+	float:left;
+}
+.lefticon img{
+	width: .41rem;
+    padding-top: 0.22rem;
+}
+.input_box input{ 
+	width: 85%;
+    padding: .28rem 0 0 0;
+    font-size: .28rem;
+    background: none;
+	color:#1080c3;
+    text-align: left;
+    float: right;
+	}
+.inde-btn button{ margin:.7rem 0;width: 100%; padding: .25rem 0;background: none;color: #222222; background:#1080c3; border-radius:.1rem; -webkit-border-radius:.1rem; -moz-border-radius:.1rem; -ms-border-radius:.1rem; -o-border-radius:.1rem; font-size: .33rem; }
+.extra_btn{display: -webkit-box;display: -ms-flexbox;display: flex;-webkit-box-pack: justify;-ms-flex-pack: justify;justify-content: space-between;}
+.extra_btn a{color: #222222;}
+#loginForm input{
+	color:#1080c3;
+
+}
+.technology{
+	font-size: .33rem;
+    color: #222222;
+    height: 1.34rem;
+    text-align: left;
+    width: 100%;
+    display: inline-block;
+    padding-left: 35px;
+}
+
+/* register */
+.register-title{color: #1080c3;font-size: .4rem;text-align: center;padding: .5rem 0;letter-spacing: .1rem;text-indent: .1rem;}
+.formrgister{width: 80%;margin:0 auto;padding-top: .2rem;font-size: .28rem;}
+.register-container .formbox{margin-top:1.6rem;}
+.formrgister .input_box{margin-top: .3rem;}
+.formrgister .input_box p{color: #1080c3}
+.formrgister .inde-btn button{margin: .5rem 0;}
+.register-container .extra_btn{-webkit-box-pack: center;-ms-flex-pack: center;justify-content: center;margin: .5rem 0 1rem 0;}
+.input_box .input-code{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-pack: justify;-ms-flex-pack: justify;justify-content: space-between;-webkit-box-align: center;-ms-flex-align: center;align-items: center;margin-top: .2rem;}
+.input_box .input-code input{width: 60%;margin: 0;}
+.input_box .input-code img{ width: 35%;height: .66rem; border-radius:.1rem; -webkit-border-radius:.1rem; -moz-border-radius:.1rem; -ms-border-radius:.1rem; -o-border-radius:.1rem; }
+.input_box .phone-code{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-align:center;-ms-flex-align:center;align-items:center}
+.input_box .phone-code input{width:50%;height:0.72rem;border-radius:0;color:#1080c3;}
+.input_box .phone-code a{
+	width: 50%;
+    height: 0.72rem;
+	font-size: .31rem;
+	text-align: right;
+    display: block;
+    color: #222222;
+    padding: .2rem 0;
+    border-top-right-radius: .1rem;
+    border-bottom-right-radius: .1rem;
+}
+/* getpsw */
+.formgetpsw .input_box p{color: #1080c3}
+.formgetpsw .input_box {margin-top: .5rem;}
+.getpwd-title{padding-top:1rem}
